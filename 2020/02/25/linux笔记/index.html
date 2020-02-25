@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="Wutao&#39;s Blog">
 <meta property="og:description" content="（批量）对文件修改12345678910111213#! &#x2F;bin&#x2F;bashdir&#x3D;$(ls -l .&#x2F; |awk &#39;!&#x2F;^d&#x2F; &amp;#123;print $NF&amp;#125;&#39; |grep -i &quot;maf&quot;)##将注释行删除for i in $dirdogrep -v &#39;^#&#39; $i &gt; .&#x2F;promafs&#x2F;$i ##sed &#39;&#x2F;^#&#x2F;d&#39; &lt;file&gt;#grep -v &#39;^$&#39;">
 <meta property="article:published_time" content="2020-02-25T08:30:48.000Z">
-<meta property="article:modified_time" content="2020-02-24T06:59:53.545Z">
+<meta property="article:modified_time" content="2020-02-25T10:50:55.498Z">
 <meta property="article:author" content="Wu tao">
 <meta name="twitter:card" content="summary">
 
@@ -83,7 +83,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Navigationsleiste an/ausschalten">
+    <div class="toggle" aria-label="تغییر ناوبری">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -113,17 +113,17 @@
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Startseite</a>
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>صفحه اصلی</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archiv<span class="badge">3</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>بایگانی<span class="badge">3</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
 
-    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>Zeitplan</a>
+    <a href="/schedule/" rel="section"><i class="fa fa-fw fa-calendar"></i>زمان بندی</a>
 
   </li>
   </ul>
@@ -155,7 +155,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/linux%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="/image/58d9f1ff46ff4.png">
       <meta itemprop="name" content="Wu tao">
       <meta itemprop="description" content="">
     </span>
@@ -173,17 +173,11 @@
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
               </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
+              <span class="post-meta-item-text">نوشته شده در</span>
+              
 
-              <time title="Erstellt: 2020-02-25 16:30:48" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:48+08:00">2020-02-25</time>
+              <time title="ایجاد شده: 2020-02-25 16:30:48 / تغییر یافته: 18:50:55" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:48+08:00">2020-02-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Bearbeitet am</span>
-                <time title="Geändert am: 2020-02-24 14:59:53" itemprop="dateModified" datetime="2020-02-24T14:59:53+08:00">2020-02-24</time>
-              </span>
 
           
 
@@ -198,7 +192,7 @@
       
         <h2 id="（批量）对文件修改"><a href="#（批量）对文件修改" class="headerlink" title="（批量）对文件修改"></a>（批量）对文件修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line">dir=$(ls -l ./ |awk '!/^d/ &#123;print $NF&#125;' |grep -i "maf")</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#将注释行删除</span></span></span><br><span class="line">for i in $dir</span><br><span class="line">do</span><br><span class="line">grep -v '^#' $i &gt; ./promafs/$i ##sed '/^#/d' &lt;file&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">grep -v <span class="string">'^$'</span> xxx，删除空行，或者 sed <span class="string">'/^$/d'</span> &lt;file&gt;</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#删除文件的第一行</span></span></span><br><span class="line">sed -i '1d' filename</span><br><span class="line">sed -i 'nd' filename##第n行</span><br><span class="line">sed -i '1,3d' filename##第1和第3行</span><br></pre></td></tr></table></figure>
 
-
+<a id="more"></a>
 
 <h2 id="文件上下翻转和左右翻转"><a href="#文件上下翻转和左右翻转" class="headerlink" title="文件上下翻转和左右翻转"></a>文件上下翻转和左右翻转</h2><ul>
 <li><p><code>tac</code> 文件上下翻转，也就是第一行变为最后一行，第二行 变成倒数第二行</p>
@@ -312,10 +306,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          Inhaltsverzeichnis
+          فهرست مطالب
         </li>
         <li class="sidebar-nav-overview">
-          Übersicht
+          نمای کلی
         </li>
       </ul>
 
@@ -327,6 +321,8 @@
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wu tao"
+      src="/image/58d9f1ff46ff4.png">
   <p class="site-author-name" itemprop="name">Wu tao</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -336,7 +332,7 @@
           <a href="/archives/">
         
           <span class="site-state-item-count">3</span>
-          <span class="site-state-item-name">Artikel</span>
+          <span class="site-state-item-name">پست ها</span>
         </a>
       </div>
   </nav>
@@ -367,10 +363,10 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Wu tao</span>
 </div>
-  <div class="powered-by">Erstellt mit  <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  <div class="powered-by">قدرت گرفته از <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">Design – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  <div class="theme-info">پوسته – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
   </div>
 
         
