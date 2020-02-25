@@ -114,7 +114,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archiv<span class="badge">1</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archiv<span class="badge">3</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -144,6 +144,259 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/linux%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wu tao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wutao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/linux%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">linux笔记</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2020-02-25 16:30:48" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:48+08:00">2020-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-02-24 14:59:53" itemprop="dateModified" datetime="2020-02-24T14:59:53+08:00">2020-02-24</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="（批量）对文件修改"><a href="#（批量）对文件修改" class="headerlink" title="（批量）对文件修改"></a>（批量）对文件修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line">dir=$(ls -l ./ |awk '!/^d/ &#123;print $NF&#125;' |grep -i "maf")</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#将注释行删除</span></span></span><br><span class="line">for i in $dir</span><br><span class="line">do</span><br><span class="line">grep -v '^#' $i &gt; ./promafs/$i ##sed '/^#/d' &lt;file&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">grep -v <span class="string">'^$'</span> xxx，删除空行，或者 sed <span class="string">'/^$/d'</span> &lt;file&gt;</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#删除文件的第一行</span></span></span><br><span class="line">sed -i '1d' filename</span><br><span class="line">sed -i 'nd' filename##第n行</span><br><span class="line">sed -i '1,3d' filename##第1和第3行</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="文件上下翻转和左右翻转"><a href="#文件上下翻转和左右翻转" class="headerlink" title="文件上下翻转和左右翻转"></a>文件上下翻转和左右翻转</h2><ul>
+<li><p><code>tac</code> 文件上下翻转，也就是第一行变为最后一行，第二行 变成倒数第二行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#首先创建一个文本</span></span></span><br><span class="line">touch taccommand</span><br><span class="line">vi taccommand</span><br><span class="line"><span class="meta">#</span><span class="bash">first</span></span><br><span class="line"><span class="meta">#</span><span class="bash">second</span></span><br><span class="line"><span class="meta">#</span><span class="bash">third</span></span><br><span class="line">cat taccommand | tac</span><br><span class="line"><span class="meta">#</span><span class="bash">third</span></span><br><span class="line"><span class="meta">#</span><span class="bash">second</span></span><br><span class="line"><span class="meta">#</span><span class="bash">first</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#我们也可以直接输入文本，使用&lt;&lt;命令</span></span></span><br><span class="line">cat &lt;&lt;END | tac##&lt;&lt;后接的就是终止符,这种方式并不创建一个文本</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>rev</code> 将每列反转，也就是将第一个字符变成最后一个</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;a | rev</span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; abcde </span></span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; xyz </span></span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; a</span></span><br><span class="line"><span class="meta">#</span><span class="bash">edcba </span></span><br><span class="line"><span class="meta">#</span><span class="bash">zyx</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="使用rename批量重命名"><a href="#使用rename批量重命名" class="headerlink" title="使用rename批量重命名"></a>使用<code>rename</code>批量重命名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch test1.fa test2.fa </span><br><span class="line">rename 'test' 'new' test*.fa</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="使用ln（link）给文件建立快捷方式，也就是创建软链接"><a href="#使用ln（link）给文件建立快捷方式，也就是创建软链接" class="headerlink" title="使用ln（link）给文件建立快捷方式，也就是创建软链接"></a>使用ln（link）给文件建立快捷方式，也就是创建软链接</h2><p><code>ln</code>参数：<code>-s</code>软链接 <code>-f</code>强制创建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#创建链接的时候需要写全路径</span></span></span><br><span class="line">ln -f /public/home/wangshx/wt/practice/pro/test3 ../pro1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#可以用pwd代替全路径</span></span></span><br><span class="line">ln -f `pwd`/test3 ../pro1##``里的命令是会运行的</span><br></pre></td></tr></table></figure>
+
+<h2 id="一些有用的快捷操作"><a href="#一些有用的快捷操作" class="headerlink" title="一些有用的快捷操作"></a>一些有用的快捷操作</h2><ul>
+<li>! 加之前输入过的命令的前几个字母，快速获取前面的命令</li>
+<li>回到命令的行首可以用<code>ctrl a</code>或者<code>home</code>键，回到行尾可以用<code>ctrl e</code>或者<code>end</code>键；比如我写好一个命令但是却不想运行了可以回到行首加上#再回车</li>
+<li><code>!!</code>表示上一条命令</li>
+<li>替换上一个命令中的字符，再运行一遍命令，用于需要对多个文件执行同样的命令，又不想写循环的情况，使用<code>:gs(global substitute)</code> 如：<code>!!:gs/test1/test2</code> 将上一条命令中的test1替换成test2再运行一次</li>
+</ul>
+<h2 id="标准输入与标准输出"><a href="#标准输入与标准输出" class="headerlink" title="标准输入与标准输出"></a>标准输入与标准输出</h2><p>主要是3个符号：<code>&lt;</code> <code>&gt;</code> <code>-</code></p>
+<p>标准输出与标准错误都是输出到屏幕上的</p>
+<p>可以用<code>&gt;</code> 将标准输出重定向到某个文件</p>
+<figure class="highlight plain"><figcaption><span>>&1``` 将标准错误重定向到标准输出，如果已经将标准输出定向到某个文件，那么这个命令可以将标准错误与标准输出定向到一个文件（**Linux 终端用 2 表示标准错误，1 表示标准输出**）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&lt;&#96;&#96;表示标准输入 后面接可以产生输出的命令 可以将输出转为输入；也可以用&#96;&#96;&#96;-&#96;&#96;&#96;表示标准输入</span><br><span class="line"></span><br><span class="line">下面看一个例子</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">##我们先写一个脚本</span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">echo &quot;i am std output&quot;</span><br><span class="line">unexisted_command</span><br><span class="line"></span><br><span class="line">bash stdout_error.sh</span><br><span class="line">#i am std output,这个就是标准输出</span><br><span class="line">#stdout_error.sh: line 4: unexisted_command: command not found，这个就是标准错误</span><br><span class="line"></span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout##将标准输出重定向到文件，但是标准错误还会在屏幕上显示</span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout 2&gt; stdout_error.stderr#将输出和错误都重定向到文件，注意2和&gt;之间没有空格</span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout 2&gt;&amp;1 ##将输出和错误重定向到一个文件</span><br><span class="line"></span><br><span class="line">cat &lt;&lt;END | diff - &lt;(echo &quot;1 2 3&quot; | tr &#39; &#39; &#39;\n&#39;) ##diff有两个输入，一个是上一个命令的输出，一个是&lt;后的输出,tr是用来替换字符的</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><p>解压用<code>unzip</code> ,压缩用<code>zip</code></p>
+<h3 id="gz"><a href="#gz" class="headerlink" title="gz"></a>gz</h3><p>解压用<code>gunzip</code>，压缩用<code>gzip</code></p>
+<h3 id="tar-gz"><a href="#tar-gz" class="headerlink" title="tar.gz"></a>tar.gz</h3><p>一些参数：</p>
+<ul>
+<li><code>-c</code>压缩</li>
+<li><code>-x</code>解压</li>
+<li><code>-t</code>查看压缩包的文件名</li>
+<li><code>-z</code>指定<code>.gz</code></li>
+<li><code>-f</code>指定压缩和解压缩的文件名</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zcv -f cp_folder.tar.gz cp_folder       #打包压缩文件夹（gzip格式）</span><br><span class="line"></span><br><span class="line">tar -ztv -f cp_folder.tar.gz                 #查看压缩文件夹中的文件名（gzip格式）</span><br><span class="line"></span><br><span class="line">tar -zxv -f cp_folder.tar.gz                 #打开包并解压缩（gzip格式）</span><br></pre></td></tr></table></figure>
+
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="文件生成"><a href="#文件生成" class="headerlink" title="文件生成"></a>文件生成</h3><p><code>seq()</code>生成序列</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">seq 1 10 ##默认分割符为换行符\n</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">seq -s " " 1 2 10 #也可以指定分隔符和步长</span><br><span class="line">1 3 5 7 9</span><br><span class="line">cat &lt;(seq 0 3 17) &lt;(seq 3 6 18) &gt; text##用标准输入和标准输出</span><br><span class="line">0</span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">9</span><br><span class="line">12</span><br><span class="line">15</span><br><span class="line">3</span><br><span class="line">9</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件排序"><a href="#文件排序" class="headerlink" title="文件排序"></a>文件排序</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wu tao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wutao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/25/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">统计学习</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Veröffentlicht am</span>
+
+              <time title="Erstellt: 2020-02-25 16:30:11" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:11+08:00">2020-02-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2020-02-10 14:58:35" itemprop="dateModified" datetime="2020-02-10T14:58:35+08:00">2020-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="第二章：统计学习"><a href="#第二章：统计学习" class="headerlink" title="第二章：统计学习"></a>第二章：统计学习</h1><h2 id="什么是统计学习？"><a href="#什么是统计学习？" class="headerlink" title="什么是统计学习？"></a>什么是统计学习？</h2><p>统计学习就是使用一系列的方法去估计输入和输出之间的关系<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206165310.png" alt=""></p>
+<p>也就是这里面的f</p>
+<h3 id="为什么估计f"><a href="#为什么估计f" class="headerlink" title="为什么估计f"></a>为什么估计f</h3><p>我们基于两个主要的原因想要去估计f</p>
+<ul>
+<li><p>预测：我们关注的是预测的response的好坏，不关心f的具体形式，因此f可以是一个黑盒子；这里对Y的预测的精确度取决于两个量：<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206171244.png" alt=""></p>
+<p>这里的reducible是可以通过选择合适的统计方法去减少的，但是irreducible是不可人为减少的，这个一般包含不可测量的变量或者某个变量有不可测量的variation，比如：我们根据病人的血样来预测其对药物的不良反应程度，这个预测可能与该药本身的发挥作用的差异，或者病人的心情相关</p>
+</li>
+<li><p>推断：我们关注的是Y是怎么随着X的变化而变化的，哪些变量与response相关的，如何识别比较重要的变量，这个时候我们就要知道f的准确的形式，而不是当作黑盒看待</p>
+</li>
+</ul>
+<h3 id="怎么样去估计f"><a href="#怎么样去估计f" class="headerlink" title="怎么样去估计f"></a>怎么样去估计f</h3><p>我们要基于训练数据依据某种统计学习的方法去估计f，统计学习的方法可以大致分成两类：参数和非参数的</p>
+<ul>
+<li>参数的方法：我们要先假设一个f的形式，再用训练数据来拟合我们假设的模型，估计模型中的参数，缺点是：依赖于我们选择的模型</li>
+<li>非参数的方法：不假设f的形式，直接用数据去估计f，缺点就是要求的数据量比较大，并且容易出现过拟合</li>
+</ul>
+<h3 id="在预测的精确度和模型的可解释性之间平衡"><a href="#在预测的精确度和模型的可解释性之间平衡" class="headerlink" title="在预测的精确度和模型的可解释性之间平衡"></a>在预测的精确度和模型的可解释性之间平衡</h3><h3 id="监督学习和非监督学习"><a href="#监督学习和非监督学习" class="headerlink" title="监督学习和非监督学习"></a>监督学习和非监督学习</h3><p>还有一种叫做半监督学习，就是我们有n个观测值，其中m个有response，另n-m个没有response</p>
+<h3 id="回归和分类问题"><a href="#回归和分类问题" class="headerlink" title="回归和分类问题"></a>回归和分类问题</h3><p>一般来讲，对于定量的变量用回归，对于定性的用分类，但是也有很多例外，比如logistic regression 也可以用作定量变量的回归，还有boosting和k最近邻方法对定量和定性的变量都适用（这里的变量指的是response，也就是因变量）</p>
+<h2 id="评估模型精确度"><a href="#评估模型精确度" class="headerlink" title="评估模型精确度"></a>评估模型精确度</h2><h3 id="拟合质量的检验"><a href="#拟合质量的检验" class="headerlink" title="拟合质量的检验"></a>拟合质量的检验</h3><p>也就是我们要定量预测的response和真实的response之间差多少</p>
+<p>对于回归来说，一般用均方误差来衡量（MSE）</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206194020.png" alt=""></p>
+<p>对于统计学习有一个基本的特征：随着统计学习方法的自由度的上升，训练集的MSE会单调下降，而测试集的MSE会呈U型，先下降后上升；当一种方法在训练集中产生小的MSE，而在测试集中产生大的SSE，我们就说这种方法<strong>过拟合</strong>了数据</p>
+<h3 id="偏差-方差之间的平衡"><a href="#偏差-方差之间的平衡" class="headerlink" title="偏差-方差之间的平衡"></a>偏差-方差之间的平衡</h3><p>expected test MSE的期望由3部分构成：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206202414.png" alt=""></p>
+<p>上式左边指的是expected test MSE，即我们在一个大的训练集中重复估计f，然后对每一个f在测试集的x0处计算其MSE，再取其平均值</p>
+<p>variance指的是如果我们用一个不同的训练集（和之前的类似）来估计f，两次f的差距</p>
+<p>bias指的是和实际情况的差距，比如实际情况是一个非线性的关系，我们用一个线性模型去拟合，那么bias就会比较大</p>
+<p>一般来说，更自由的模型会导致variance上升，而bias下降</p>
+<p>所以我们要找到偏差-方差之间的平衡，从而使得expected test MSE最小</p>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><p>一般用错误率来衡量分类问题的预测准确度：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206204033.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206204049.png" alt=""></p>
+<p>上面的是训练集的错误率，下面的是预测集的错误率；I是指标变量，当yi = ˆyi</p>
+<p>的时候i=0，当两者不相等的时候i=1.</p>
+<h4 id="贝叶斯分类器"><a href="#贝叶斯分类器" class="headerlink" title="贝叶斯分类器"></a>贝叶斯分类器</h4><p>对于分类问题，可以看成条件概率：<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206204924.png" alt=""></p>
+<p>使得上式最大的x0和j，那么就将x0归到j类</p>
+<p>对于贝叶斯分类器，其错误率为：<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206205146.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206205223.png" alt=""></p>
+<p>上图是一个贝叶斯二分类器的例子，其中紫色的虚线是贝叶斯决策边界</p>
+<h3 id="k-最近邻"><a href="#k-最近邻" class="headerlink" title="k-最近邻"></a>k-最近邻</h3><p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/1a8785136e1a980ecdd561e19d22fdf.jpg" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200208211407.png" alt=""></p>
+<p>将x0归类于概率最大的类</p>
+<p>k的选择对KNN分类器的表现有较大的影响</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200208212052.png" alt=""></p>
+<p>上图表示的是分别选择K=1和K=100的比较，紫色的虚线是贝叶斯分类器；k=1的时候反应了该分类器是一个较flexible的，bias较低而variance较高，在k=100的时候该分类器的bias就比较高，variance比较低</p>
+<p>和回归类似，分类的错误率在训练集和测试集之间没有强的关系，当训练集的错误率降低的时候，测试集不一定降低</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200208213006.png" alt=""></p>
+<p>就像上图所示，当k减少时，自由度上升，训练集的错误率降低，而测试集的错误率依然呈现一个U的形状（曲线的跳动是由于数据量比较少）</p>
+<h2 id="试验"><a href="#试验" class="headerlink" title="试验"></a>试验</h2><h2 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h2><h1 id="第三章-线性回归"><a href="#第三章-线性回归" class="headerlink" title="第三章 线性回归"></a>第三章 线性回归</h1><h2 id="简单线性回归"><a href="#简单线性回归" class="headerlink" title="简单线性回归"></a>简单线性回归</h2><p>简单线性回归只有一个定量的response Y，也只有一个predictor变量X：</p>
+<p><code>Y ≈ β0 + β1X</code></p>
+<h3 id="估计系数"><a href="#估计系数" class="headerlink" title="估计系数"></a>估计系数</h3><p>最小二乘法，使得残差（观测值减去预测值）和最小：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209105109.png" alt=""></p>
+<p>也就是：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209105142.png" alt=""></p>
+<p>偏导求解得：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209105229.png" alt=""></p>
+<h3 id="评估系数估计的准确性"><a href="#评估系数估计的准确性" class="headerlink" title="评估系数估计的准确性"></a>评估系数估计的准确性</h3><p>我们可以类比总体均值与样本的均值：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209113504.png" alt=""></p>
+<p>上图中红色的是总体的回归线（也就是真实的），深蓝色的是最小二乘法得到的，浅蓝色的是用来自同一个总体回归线的其他十个样本得到的回归线</p>
+<p>我们可以用样本的均值去估计总体的均值，并且样本均值是总体均值的无偏估计量（无偏估计量的期望等于要估计的参数），也就是说我们取多次样，对样本均值取平均后接近于总体均值；对于β0 ，β1也是这样，就像上右图所示，多次估计的结果近似于总体的回归线</p>
+<p>但是我们怎么估计一次抽样样本中的均值和总体均值的误差呢？可以用标准误：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209114350.png" alt=""></p>
+<p>同样的，我们也可以用标准误来估计β0 ，β1的误差：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209114453.png" alt=""></p>
+<p>这里的σ2 = Var(ε)</p>
+<p>ε也是未知的，也需要估计，这个估计的σ叫做残差标准误（RSE）：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209114829.png" alt=""></p>
+<p><strong>标准误可以用来计算置信区间</strong>：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209115053.png" alt=""></p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209115112.png" alt=""></p>
+<p>注意，这里面的2不是精确的，实际上2，在n-2自由度的t分布中代表的分位数是97.5%</p>
+<p><strong>标准误也可以用来进行假设检验</strong>：</p>
+<p>这里面的H0就是X，Y间没有相关性，H1就是X,Y间有相关性，也可以说：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209115440.png" alt=""></p>
+<p>t统计量为：</p>
+<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200209115545.png" alt=""></p>
+<p>显示β1hat离0有多少个标准误</p>
+<h3 id="评估模型的精确度"><a href="#评估模型的精确度" class="headerlink" title="评估模型的精确度"></a>评估模型的精确度</h3><p>一般用残差标准误（RSE）和R²</p>
+<h4 id="RSE"><a href="#RSE" class="headerlink" title="RSE"></a>RSE</h4><p>RSE就是上面所讲的，是对ε标准差的估计</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -760,7 +1013,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">Artikel</span>
         </a>
       </div>
