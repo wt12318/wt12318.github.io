@@ -168,18 +168,26 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-02-25 19:48:13" itemprop="dateCreated datePublished" datetime="2020-02-25T19:48:13+08:00">2020-02-25</time>
+              <time title="创建时间：2020-02-25 19:48:13 / 修改时间：20:02:39" itemprop="dateCreated datePublished" datetime="2020-02-25T19:48:13+08:00">2020-02-25</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 17:27:57" itemprop="dateModified" datetime="2020-02-02T17:27:57+08:00">2020-02-02</time>
-              </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>26k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>23 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -190,394 +198,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="准备需要的文件"><a href="#准备需要的文件" class="headerlink" title="准备需要的文件"></a>准备需要的文件</h1><h2 id="可以用downloader包来下载文件"><a href="#可以用downloader包来下载文件" class="headerlink" title="可以用downloader包来下载文件"></a>可以用<code>downloader</code>包来下载文件</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">"downloader"</span>)</span><br><span class="line"><span class="keyword">library</span>(downloader)</span><br><span class="line">url &lt;-<span class="string">"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleMiceWeights.csv"</span></span><br><span class="line">filename &lt;- <span class="string">"femaleMiceWeights.csv"</span> </span><br><span class="line">download(url,destfile=filename)</span><br><span class="line">data &lt;- read.csv(filename)</span><br></pre></td></tr></table></figure>
-
-<h2 id="可以用devtools包来安装GitHub中的包"><a href="#可以用devtools包来安装GitHub中的包" class="headerlink" title="可以用devtools包来安装GitHub中的包"></a>可以用<code>devtools</code>包来安装GitHub中的包</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">"devtools"</span>)</span><br><span class="line"><span class="keyword">library</span>(devtools)</span><br><span class="line">install_github(<span class="string">"genomicsclass/dagdata"</span>)</span><br><span class="line"><span class="comment">##需要的文件在包中，可以通过以下的方法来找到</span></span><br><span class="line">dir &lt;- system.file(package=<span class="string">"dagdata"</span>)<span class="comment">##提取包的位置</span></span><br><span class="line">list.files(dir)<span class="comment">##列出包中含有的文件</span></span><br><span class="line">list.files(file.path(dir,<span class="string">"extdata"</span>))<span class="comment">##列出包中的extdata中的文件</span></span><br><span class="line">filename &lt;- file.path(dir,<span class="string">"extdata/femaleMiceWeight.csv"</span>)</span><br><span class="line">data &lt;- read.csv(filename)</span><br></pre></td></tr></table></figure>
-
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><blockquote>
-<p> One of the functions we will be using often is <code>sample</code>. Read the help file for <code>sample</code> using <code>?sample</code>. Now take a random sample of size 1 from the numbers 13 to 24 and report back the weight of the mouse represented by that row. Make sure to type <code>set.seed(1)</code> to ensure that everybody gets the same answer. </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">line &lt;- sample(<span class="number">13</span>:<span class="number">24</span>,<span class="number">1</span>)</span><br><span class="line">data[line,<span class="string">"Bodyweight"</span>]</span><br></pre></td></tr></table></figure>
-
-<h1 id="dplyr简单介绍"><a href="#dplyr简单介绍" class="headerlink" title="dplyr简单介绍"></a>dplyr简单介绍</h1><p>这里聚焦两个函数：</p>
-<p>数据：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/2019-10-15222841.png" alt=""></p>
-<h2 id="filter-函数过滤行"><a href="#filter-函数过滤行" class="headerlink" title="filter 函数过滤行"></a><code>filter</code> 函数过滤行</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">chow &lt;- filter(data,Diet==<span class="string">"chow"</span>)</span><br><span class="line">head(chow)</span><br><span class="line"><span class="comment">##现在可以选择列</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="select-函数选择列"><a href="#select-函数选择列" class="headerlink" title="select 函数选择列"></a><code>select</code> 函数选择列</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chowVals &lt;- select(chow,Bodyweight)</span><br><span class="line">head(chowvals)</span><br></pre></td></tr></table></figure>
-
-<h2 id="gt-来进行管道操作"><a href="#gt-来进行管道操作" class="headerlink" title="%&gt;%来进行管道操作"></a><code>%&gt;%</code>来进行管道操作</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chowval &lt;- filter(data,Diet==<span class="string">"chow"</span>) %&gt;% select(Bodyweight)</span><br></pre></td></tr></table></figure>
-
-<h2 id="unlist-将list转化成numeric"><a href="#unlist-将list转化成numeric" class="headerlink" title="unlist 将list转化成numeric"></a><code>unlist</code> 将list转化成numeric</h2><figure class="highlight plain"><figcaption><span>frame, 可以用```unlist```转化</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;R</span><br><span class="line">chowval &lt;- filter(data,Diet&#x3D;&#x3D;&quot;chow&quot;) %&gt;% select(Bodyweight) %&gt;% unlist</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Chapter-1-Inference"><a href="#Chapter-1-Inference" class="headerlink" title="Chapter 1 - Inference"></a>Chapter 1 - Inference</h1><h2 id="introduction"><a href="#introduction" class="headerlink" title="introduction"></a>introduction</h2><blockquote>
-<p>问题引入：</p>
-<p>在引入高脂肪饮食的第一周内，小鼠的体重在高脂肪饮食组（ + 1.6 ±0.1 g ）比正常组（ + 0.2 ±0.1 g）显著上升（P&lt;0.001)</p>
-<p>这里的±指的是什么，P&lt;0.001代表什么？</p>
-</blockquote>
-<h3 id="Our-first-look-at-data"><a href="#Our-first-look-at-data" class="headerlink" title="Our first look at data"></a>Our first look at data</h3><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data &lt;- read.csv(<span class="string">"femaleMiceWeight.csv"</span>)<span class="comment">##读入数据</span></span><br><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">control &lt;- filter(data,Diet==<span class="string">"chow"</span>) %&gt;% select(Bodyweight) %&gt;% unlist</span><br><span class="line">treatment &lt;- filter(data,Diet==<span class="string">"hf"</span>) %&gt;% select(Bodyweight) %&gt;% unlist</span><br><span class="line">print(mean(treatment))<span class="comment">##看看处理组的均值</span></span><br><span class="line">print(mean(control))</span><br><span class="line">diff &lt;- mean(treatment)-mean(control)</span><br><span class="line">print(diff)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Random-Variables"><a href="#Random-Variables" class="headerlink" title="Random Variables"></a>Random Variables</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(downloader)</span><br><span class="line">url &lt;- <span class="string">"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv"</span></span><br><span class="line">filename &lt;- <span class="string">"femaleContorlsPopulation.csv"</span><span class="comment">##control的群体</span></span><br><span class="line"><span class="keyword">if</span> (!file.exists(filename)) download(url,destfile=filename)</span><br><span class="line">population &lt;- read.csv(filename)</span><br><span class="line">population &lt;- unlist(population)</span><br><span class="line">control &lt;- sample(population,<span class="number">12</span>)<span class="comment">##我们在群体中抽样</span></span><br><span class="line">mean(control)</span><br><span class="line">control &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">mean(control)</span><br><span class="line">control &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">mean(control)</span><br></pre></td></tr></table></figure>
-
-<p>随机变量可以简单理解为每次抽样时其值都会变化的变量</p>
-<h2 id="The-Null-Hypothesis"><a href="#The-Null-Hypothesis" class="headerlink" title="The Null Hypothesis"></a>The Null Hypothesis</h2><p>上面的diff是由饮食导致的吗，这个差异足够大吗？</p>
-<p>null hypothesis: 认为饮食导致的体重是没有差异的</p>
-<p>我们可以在control的群体中抽取10000次，再将其分成2个12的组，即没有饮食效应的，然后将其的均值差异与之前实验中的均值差异做比较</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">control &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">treatment &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">print(mean(treatment)-mean(control))</span><br><span class="line">n &lt;- <span class="number">10000</span></span><br><span class="line">null &lt;- vector(<span class="string">"numeric"</span>,n)</span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n)&#123;</span><br><span class="line">  control &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">  treatment &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">  null[i] &lt;- mean(treatment)-mean(control)</span><br><span class="line">&#125;</span><br><span class="line">mean(null &gt;= diff)<span class="comment">##以后可以用这个来算百分比</span></span><br></pre></td></tr></table></figure>
-
-<p>结果是很小的，即在没有diet 效应的时候，能够观察到和之前相当的差异只有1.5%的机会</p>
-<p>在null中的数我们叫做<strong>null distribution</strong></p>
-<h2 id="Distributions"><a href="#Distributions" class="headerlink" title="Distributions"></a>Distributions</h2><p>什么是分布？最简单的想法就是：分布就是很多数字的描述</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##导入数据</span></span><br><span class="line"><span class="keyword">library</span>(UsingR)</span><br><span class="line">x &lt;- father.son$fheight</span><br><span class="line">round(sample(x,<span class="number">10</span>),<span class="number">1</span>)</span><br><span class="line"><span class="comment">## [1] 67.4 64.9 62.9 69.2 72.3 69.3 65.9 65.2 69.8 69.1</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="Cumulative-Distribution-Function"><a href="#Cumulative-Distribution-Function" class="headerlink" title="Cumulative Distribution Function"></a>Cumulative Distribution Function</h3><p>定义：对于任意的a,在数据中小于a的数占的比例</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/215911.png" alt=""></p>
-<p>这个叫做累计分布函数（CDF），当这个分布由数据得到，那么这种分布叫做经验分布（ECDF）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##我们可以画出这个经验分布</span></span><br><span class="line">smallest &lt;- floor(min(x))</span><br><span class="line">largest &lt;- ceiling(max(x))</span><br><span class="line">values &lt;- seq(smallest,largest,len=<span class="number">300</span>)</span><br><span class="line">heightecdf &lt;- ecdf(x)</span><br><span class="line">plot(values,heightecdf(values),type=<span class="string">"l"</span>,xlab=<span class="string">"a (height in inches)"</span>,ylab=<span class="string">"Pr(x&lt;=a)"</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/220041.png" alt=""><br>我们也可以用直方图来画在某一个间隔的分布<br>$$<br>Pr(a\le x \le b)=F(b)-F(a)<br>$$</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hist(x)<span class="comment">#直接画出分布图</span></span><br><span class="line"></span><br><span class="line">bins &lt;- seq(smallest,largest)</span><br><span class="line">hist(x,breaks=bins,xlab=<span class="string">"Height(in inches)"</span>,main=<span class="string">"Adult men height"</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/220122.png" alt=""></p>
-<p>我们可以看出上面的<code>ecdf</code>函数得出的是累积分布函数，直方图得出的是每个间隔的分布（频数）</p>
-<h2 id="Probability-Distribution"><a href="#Probability-Distribution" class="headerlink" title="Probability Distribution"></a>Probability Distribution</h2><p>分布的用途除了总结一列数字外，更重要的用途是描叙随机变量的可能结果，不像一列数字，我们不能观察到随机变量的所有结果，所以不能像上面一样描叙占比，而是描述概率。<br>$$<br>Pr(a\le X \le b)=F(b)-F(a)<br>$$<br>这个就叫做随机变量X的概率分布</p>
-<p>从上面的例子来讲，就是如果在空假设下我们知道两组老鼠体重的差值的分布（这个分布叫做Null distribution），那么我们就可以算出观察某个值时的概率（叫做P值）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">n &lt;-<span class="number">100</span></span><br><span class="line"><span class="keyword">library</span>(rafalib)</span><br><span class="line">nullplot(-<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">30</span>,xlab=<span class="string">"observed diffences(grams)"</span>,ylab = <span class="string">"frequency"</span>)</span><br><span class="line">totals &lt;- vector(<span class="string">"numeric"</span>,<span class="number">11</span>)</span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n) &#123;</span><br><span class="line">  control &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">  treatment &lt;- sample(population,<span class="number">12</span>)</span><br><span class="line">  nulldiff &lt;- mean(treatment)-mean(control)</span><br><span class="line">  j &lt;- pmax(pmin(round(nulldiff)+<span class="number">5</span>,<span class="number">11</span>),<span class="number">1</span>)<span class="comment">##不加5也行</span></span><br><span class="line">  totals[j] &lt;- totals[j]+<span class="number">1</span><span class="comment">##j是计数的，来搞画图时显示的y轴</span></span><br><span class="line">  text(j-<span class="number">5</span>,totals[j],pch=<span class="number">15</span>,round(nulldiff,<span class="number">1</span>))</span><br><span class="line">  <span class="keyword">if</span>(i&lt;<span class="number">15</span>) Sys.sleep(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/220204.png" alt=""></p>
-<p>现在我们就可以看比我们之前算出的diff大的值占多少</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hist(null,freq = <span class="literal">TRUE</span>)</span><br><span class="line">abline(v=diff,col=<span class="string">"red"</span>,lwd=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="C:%5CUsers%5C16504%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20191103220249554.png" alt="image-20191103220249554"></p>
-<h2 id="Normal-Distribution"><a href="#Normal-Distribution" class="headerlink" title="Normal Distribution"></a>Normal Distribution</h2><p>上面的分布就是Normal Distribution或者叫 Gaussian distribution </p>
-<p>当一列数服从正态分布的时候我们可以用以下公式计算在某区间的数的比例：<br>$$<br>Pr(a&lt;x&lt;b) = \int_{a}^{b} \frac{1}{\sqrt{2\pi\sigma^2}}exp(\frac{-(x-\mu)^2}{2\sigma^2})dx<br>$$<br>在这里 σ和μ指的是均值和标准差，我们可以使用R中的<code>pnorm</code>函数来计算正态分布</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnorm(diff,mean(null),sd(null))<span class="comment">##pnorm(x,σ,μ)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="练习-1"><a href="#练习-1" class="headerlink" title="练习"></a>练习</h2><p>数据：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(downloader) </span><br><span class="line">url &lt;-<span class="string">"https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extdata/femaleControlsPopulation.csv"</span></span><br><span class="line">filename &lt;- basename(url)</span><br><span class="line">download(url, destfile=filename)</span><br><span class="line">x &lt;- unlist( read.csv(filename) )</span><br><span class="line"><span class="comment">##这个模式可以记住</span></span><br></pre></td></tr></table></figure>
-
-<p>问题：</p>
-<blockquote>
-<p> What is the average of these weights? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mean(x)</span><br><span class="line"><span class="comment">## 23.89338</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> After setting the seed at 1, <code>set.seed(1)</code> take a random sample of size 5. What is the absolute value (use <code>abs</code>) of the difference between the average of the sample and the average of all the values? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">sample &lt;- sample(x,<span class="number">5</span>)</span><br><span class="line">abs(mean(sample)-mean(x))</span><br><span class="line"><span class="comment">##0.3293778</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> After setting the seed at 5, <code>set.seed(5)</code> take a random sample of size 5. What is the absolute value of the difference between the average of the sample and the average of all the values? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ste.seed(<span class="number">5</span>)</span><br><span class="line">sample1 &lt;- sample(x,<span class="number">5</span>)</span><br><span class="line">abs(mean(sample)-mean(x))</span><br><span class="line"><span class="comment">##0.3813778</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Why are the answers from 2 and 3 different?</p>
-<ul>
-<li>A) Because we made a coding mistake.</li>
-<li>B) Because the average of the <code>x</code> is random.</li>
-<li>C) Because the average of the samples is a random variable.</li>
-<li>D) All of the above.</li>
-</ul>
-<p>C</p>
-</blockquote>
-<blockquote>
-<p> Set the seed at 1, then using a for-loop take a random sample of 5 mice 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 ounce away from the average of <code>x</code> ? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">n &lt;-<span class="number">1000</span></span><br><span class="line">b &lt;- vector(<span class="string">"numeric"</span>,<span class="number">1000</span>)</span><br><span class="line">j &lt;-<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n)&#123;</span><br><span class="line">    a &lt;- sample(x,<span class="number">5</span>)</span><br><span class="line">    b[j] &lt;- mean(a)</span><br><span class="line">    j &lt;- j+<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">d &lt;- mean(x)+<span class="number">1</span></span><br><span class="line">mean(b&gt;d)<span class="comment">#由上面借鉴而来</span></span><br><span class="line"><span class="comment">##0.232</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> We are now going to increase the number of times we redo the sample from 1,000 to 10,000. Set the seed at 1, then using a for-loop take a random sample of 5 mice 10,000 times. Save these averages. What percent of these 10,000 averages are more than 1 ounce away from the average of <code>x</code> ? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##重复上面代码，将1000改成10000，得到</span></span><br><span class="line"><span class="comment">##0.2448</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>以上两个的结果差不多，这是因为我们认为1000足够大了，所以1000和10000所得到的随机变量的分布是相似的，所以得出的比例相似</p>
-<p>Set the seed at 1, then using a for-loop take a random sample of 50 mice 1,000 times. Save these averages. What percent of these 1,000 averages are more than 1 ounce away from the average of <code>x</code> ?</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##重复上面代码，将5(f)改成50(b)，得到，</span></span><br><span class="line"><span class="comment">##0.009</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Use a histogram to “look” at the distribution of averages we get with a sample size of 5 and a sample size of 50. How would you say they differ?</p>
-<ul>
-<li>A) They are actually the same.</li>
-<li>B) They both look roughly normal, but with a sample size of 50 the spread is smaller<strong>. yes</strong></li>
-<li>C) They both look roughly normal, but with a sample size of 50 the spread is larger.</li>
-<li>D) The second distribution does not look normal at all.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wt12318&#x2F;picgo&#x2F;master&#x2F;img&#x2F;231345.png)</span><br><span class="line"></span><br><span class="line">![](https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;wt12318&#x2F;picgo&#x2F;master&#x2F;img&#x2F;231403.png)</span><br><span class="line"></span><br><span class="line"> For the last set of averages, the ones obtained from a sample size of 50, what percent are between 23 and 25? </span><br><span class="line"></span><br><span class="line"># Population, Samples, and Estimates</span><br><span class="line"></span><br><span class="line">## Population parameters</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;R</span><br><span class="line">##准备数据</span><br><span class="line">library(downloader)</span><br><span class="line">url &lt;- &quot;https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;genomicsclass&#x2F;dagdata&#x2F;master&#x2F;inst&#x2F;extdata&#x2F;mice_pheno.csv&quot;</span><br><span class="line">filename &lt;- &quot;mice_pheno.csv&quot;</span><br><span class="line">download(url,destfile&#x3D;filename)</span><br><span class="line">data &lt;- read.csv(filename)</span><br><span class="line"></span><br><span class="line">##发现无法连到服务器</span><br><span class="line">##所以直接到GitHub下载</span><br><span class="line"></span><br><span class="line">## 我们可以计算control全体的大小</span><br><span class="line">library(dplyr)</span><br><span class="line">controlPopulation &lt;-filter(data,Sex&#x3D;&#x3D;&quot;F&quot;&amp;Diet&#x3D;&#x3D;&quot;chow&quot;) %&gt;% select(Bodyweight) %&gt;% unlist##这儿出错了，将select改成dplyr::select,原因是可能有别的包引用了该函数，造成冲突</span><br><span class="line">length(controlPopulation)</span><br><span class="line">##225</span><br><span class="line"></span><br><span class="line">##也可以计算高脂肪群体的大小</span><br><span class="line">hfpopulation &lt;- filter(data,Sex&#x3D;&#x3D;&quot;F&quot;&amp;Diet&#x3D;&#x3D;&quot;hf&quot;)%&gt;% dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">length(hfpopulation)</span><br><span class="line">##200 </span><br></pre></td></tr></table></figure>
-</blockquote>
-<p>我们将control称为<code>X1,X2,...</code> 将高脂肪饮食的群体称为<code>y1,y2...</code> </p>
-<p>我们就可以计算出均值（mean）和方差（variance）：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/220456.png" alt=""></p>
-<p>标准偏差（ standard deviation ）为方差的平方根</p>
-<p>这些定量的数据，我们称之为全体参数（population parameters)</p>
-<p>那么我们之前问的问题（两组值的差值）现在可以描述为：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/220534.png" alt=""></p>
-<p>尽管我们现在有全体的数据，我们可以计算这个值，但是在实践中，我们通常取样本来计算，这个就是统计推断（ statistical inference ）的关键                                         </p>
-<h2 id="Sample-estimates"><a href="#Sample-estimates" class="headerlink" title="Sample estimates"></a>Sample estimates</h2><p>在样本的层面上，我们需要理解：样本的均值的差与全体的均值的差的联系</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/225347.png" alt=""></p>
-<h2 id="练习-2"><a href="#练习-2" class="headerlink" title="练习"></a>练习</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##数据还是上面的mice_pheo.csv</span></span><br><span class="line"><span class="comment">##除去missing value</span></span><br><span class="line">data &lt;- na.omit(data)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Use <code>dplyr</code> to create a vector <code>x</code> with the body weight of all males on the control (<code>chow</code>) diet. What is this population’s average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">malecontrol &lt;- dplyr::filter(data,Sex==<span class="string">"M"</span>&amp;Diet==<span class="string">"chow"</span>) %&gt;% dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">mean(malecontrol)</span><br><span class="line"><span class="comment">##30.96381</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Now use the <code>rafalib</code> package and use the <code>popsd</code> function to compute the population standard deviation. </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rafalib::popsd(malecontrol)</span><br><span class="line"><span class="comment">##4.42051</span></span><br><span class="line"><span class="comment">##popsd函数返回population standard deviation</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Set the seed at 1. Take a random sample X of size 25 from <code>x</code>. What is the sample average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">X &lt;- sample(malecontrol,<span class="number">25</span>)</span><br><span class="line">mean(X)</span><br><span class="line"><span class="comment">##30.5196</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Use <code>dplyr</code> to create a vector <code>y</code> with the body weight of all males on the high fat (<code>hf</code>) diet. What is this population’s average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maletreat &lt;- dplyr::filter(data,Sex==<span class="string">"M"</span>&amp;Diet==<span class="string">"hf"</span>) %&gt;% dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">mean(maletreat)</span><br><span class="line"><span class="comment">##34.84793</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Now use the <code>rafalib</code> package and use the <code>popsd</code> function to compute the population standard deviation. </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rafalib::popsd(maletreat)</span><br><span class="line"><span class="comment">#5.574609</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p> Set the seed at 1. Take a random sample Y of size 25 from <code>y</code>. What is the sample average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">Y &lt;- sample(maletreat,<span class="number">25</span>)</span><br><span class="line">mean(Y)</span><br><span class="line"><span class="comment">##35.8036</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>What is the difference in absolute value between y¯−x¯ and $$\bar{X}-\bar{Y}$? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mean()</span><br></pre></td></tr></table></figure>
-<h1 id="Central-Limit-Theorem-and-t-distribution"><a href="#Central-Limit-Theorem-and-t-distribution" class="headerlink" title="Central Limit Theorem and t-distribution"></a>Central Limit Theorem and t-distribution</h1><h2 id="Central-Limit-Theorem"><a href="#Central-Limit-Theorem" class="headerlink" title="Central Limit Theorem"></a>Central Limit Theorem</h2><p> 中心极限定理告诉我们，当一个样本非常大的时候，那么该<strong>随机样本的均值</strong>服从正态分布，并且该正态分布以总体的均值为中心，标准偏差为总体的标准偏差除以样本大小（N）的平方根。（我们将随机变量分布的标准偏差叫做随机变量的标准误（standard error))<br>接下来介绍一些随机变量的均值和标准偏差的特征：</p>
-<ul>
-<li>如果X是随机变量(均值为u)，a是常数，那么随机变量(X-a)的均值是u-a</li>
-<li>如果X是均值为u，标准偏差为σ的随机变量，那么aX的均值和SD为au和|a|σ</li>
-<li>如果X,Y是随机变量，那么Y+X也是随机变量；并且Y+X的均值为uY+uX; 如果X,Y是相互独立的，那么Y+/-X的方差为两者方差的和</li>
-</ul>
-<p>所以如果我们取很多的大小为N的样本，那么：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/185533.png" alt=""></p>
-<p>上式所表示的随机变量就服从正态分布，并且该正态分布以0为中心，标准偏差为1【我的理解，这里的 σY指的是总体的标准偏差】</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/20191030190910.jpg" alt="">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </p>
-<p>所以我们就可以描述之前提过的问题：两种饮食导致的体重有没有差异？</p>
-<p>首先我们从两个总体分别抽样，空假设是两组的均值没有差异；我们抽样得到的样本均值是服从正态分布的：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/20191030192849.jpg" alt=""></p>
-<p>也就是说：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/193021.png" alt=""></p>
-<p>上式所表示的随机变量服从均值为0，标准偏差为1的正态分布</p>
-<p>我们可以用这个近似来计算P值，因为我们知道小于任意值的分布的比例；例如这些值只有大概5%是大于2的（绝对值）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pnorm(-<span class="number">2</span>)+(<span class="number">1</span>-pnorm(<span class="number">2</span>))<span class="comment">##算绝对值</span></span><br><span class="line"><span class="comment">##0.04550026</span></span><br></pre></td></tr></table></figure>
-
-<p>但是我们目前还不知道总体的标准偏差， 但是我们可以通过使用样本标准偏差来解决此问题 ，样本的标准偏差分别叫做sX和sY：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/195009.png" alt=""></p>
-<p>关键的点就是我们用样本的标准偏差去估计总体的标准偏差</p>
-<p>所以上面的式子可以写成：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/200121.png" alt=""></p>
-<p>中心极限定理告诉我们当M，N足够大的时候，上面的那个随机变量服从（0，1）的正态分布，可以用<code>pnorm</code>来计算P值</p>
-<h2 id="The-t-distribution"><a href="#The-t-distribution" class="headerlink" title="The t-distribution"></a>The t-distribution</h2><p>中心极限定理依赖于大样本，叫做 <em>asymptotic results</em> </p>
-<p>当我们在不依赖<em>asymptotic results</em>的情况下可以有另外的选择：</p>
-<p>当总体是服从均值为0的正态分布的时候，我们可以计算<img src="https://raw.githubusercontent.com/wt12318/picgo/master/203830.png" alt="">的分布，这个式子中有两个随机变量，但是其两个的比值不一定是服从正态分布； <a href="http://en.wikipedia.org/wiki/William_Sealy_Gosset" target="_blank" rel="noopener">William Sealy Gosset</a> 算出来这个随机变量的分布（他是用笔名Student发表论文的，所以该分布就叫做 <strong>Student’s t-distribution</strong> ）</p>
-<p>这里我们用mice的表型数据作为一个例子：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">data &lt;- read.csv(<span class="string">"mice_pheno.csv"</span>)</span><br><span class="line">controlPopulation &lt;- filter(dat,Sex == <span class="string">"F"</span> &amp; Diet == <span class="string">"chow"</span>) %&gt;%  </span><br><span class="line">  dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">hfPopulation &lt;- filter(dat,Sex == <span class="string">"F"</span> &amp; Diet == <span class="string">"hf"</span>) %&gt;%  </span><br><span class="line">  dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">hist(hfpopulation)</span><br><span class="line">hist(controlpopulation)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/203423.png" alt=""></p>
-<p>注意这里我们是假设总体服从正态分布，而不是随机变量，我们可以用qq-plots来检测分布是不是和正态分布非常接近；qq-plots 将数据（在y轴上）与理论分布（在x轴上）进行比较 </p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mypar(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">qqnorm(hfpopulation)</span><br><span class="line">qqline(hfpopulation)</span><br><span class="line">qqnorm(controlpopulation)</span><br><span class="line">qqline(controlpopulation)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/205218.png" alt=""></p>
-<h2 id="练习-3"><a href="#练习-3" class="headerlink" title="练习"></a>练习</h2><p>数据还是<code>mice_pheno.csv</code></p>
-<blockquote>
-<p> If a list of numbers has a distribution that is well approximated by the normal distribution, what proportion of these numbers are within one standard deviation away from the list’s average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##从上面可以看出我们的数据是比较接近正态分布的，所以可以用其计算(选择control，即正常饮食的雌性老鼠)</span></span><br><span class="line">sd &lt;- popsd(controlpopulation)</span><br><span class="line">sd_above &lt;- mean(controlpopulation)+sd</span><br><span class="line">sd_below &lt;- mean(controlpopulation)-sd</span><br><span class="line">newdata &lt;- filter(data,Bodyweight&gt;sd_below&amp;Bodyweight&lt;sd_above&amp;Sex==<span class="string">"F"</span>&amp;Diet==<span class="string">"chow"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">length(newdata)/length(controlpopulation)<span class="comment">##[1] 0.7022222</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##也可以直接用mean，来验证</span></span><br><span class="line">mean(controlpopulation&gt;sd_below&amp;controlpopulation&lt;sd_above)<span class="comment">##[1] 0.7022222</span></span><br></pre></td></tr></table></figure>
-
-<p>所以大概70%的数据在偏离均值的一个标准差之内</p>
-<blockquote>
-<p>What proportion of these numbers are within two standard deviations away from the list’s average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sd_above &lt;- mean(controlpopulation)+<span class="number">2</span>*sd</span><br><span class="line">sd_below &lt;- mean(controlpopulation)-<span class="number">2</span>*sd</span><br><span class="line">mean(controlpopulation&gt;sd_below&amp;controlpopulation&lt;sd_above)</span><br><span class="line"><span class="comment">## [1] 0.9466667</span></span><br></pre></td></tr></table></figure>
-
-<p>所以大概95%的数据在均值的两个标准差之内</p>
-<blockquote>
-<p> What proportion of these numbers are within three standard deviations away from the list’s average? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sd_above &lt;- mean(controlpopulation)+<span class="number">3</span>*sd</span><br><span class="line">sd_below &lt;- mean(controlpopulation)-<span class="number">3</span>*sd</span><br><span class="line">mean(controlpopulation&gt;sd_below&amp;controlpopulation&lt;sd_above)</span><br><span class="line"><span class="comment">##[1] 0.9955556</span></span><br></pre></td></tr></table></figure>
-
-<p>所以有大概99%的数据在偏离均值3个标准差的范围内</p>
-<blockquote>
-<p> Define <code>y</code> to be the weights of males on the control diet. What proportion of the mice are within one standard deviation away from the average weight (remember to use <code>popsd</code> for the population <code>sd</code>)?  What proportion of these numbers are within two standard deviations away from the list’s average? What proportion of these numbers are within three standard deviations away from the list’s average?  </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">y &lt;- filter(data,Sex==<span class="string">"M"</span>&amp;Diet==<span class="string">"chow"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">sd &lt;- popsd(y)</span><br><span class="line">sd_above &lt;- mean(y)+sd</span><br><span class="line">sd_below &lt;- mean(y)-sd</span><br><span class="line">mean(y&gt;sd_below&amp;y&lt;sd_above)<span class="comment">##[1] 0.6950673</span></span><br><span class="line">sd_above &lt;- mean(y)+<span class="number">2</span>*sd</span><br><span class="line">sd_below &lt;- mean(y)-<span class="number">2</span>*sd</span><br><span class="line">mean(y&gt;sd_below&amp;y&lt;sd_above)<span class="comment">##[1] 0.9461883</span></span><br><span class="line">sd_above &lt;- mean(y)+<span class="number">3</span>*sd</span><br><span class="line">sd_below &lt;- mean(y)-<span class="number">3</span>*sd</span><br><span class="line">mean(y&gt;sd_below&amp;y&lt;sd_above)<span class="comment">##[1] 0.9910314</span></span><br></pre></td></tr></table></figure>
-
-<p>和上面算的结果非常相似</p>
-<blockquote>
-<p>Note that the numbers for the normal distribution and our weights are relatively close. Also, notice that we are indirectly comparing quantiles of the normal distribution to quantiles of the mouse weight distribution. We can actually compare all quantiles using a qqplot. Which of the following best describes the qq-plot comparing mouse weights to the normal distribution?</p>
-<ul>
-<li>A) The points on the qq-plot fall exactly on the identity line.</li>
-<li>B) The average of the mouse weights is not 0 and thus it can’t follow a normal distribution.</li>
-<li>C) The mouse weights are well approximated by the normal distribution, although the larger values (right tail) are larger than predicted by the normal. This is consistent with the differences seen between question 3 and 6.</li>
-<li>D) These are not random variables and thus they can’t follow a normal distribution.</li>
-</ul>
-<p>C</p>
-</blockquote>
-<blockquote>
-<p>Create the above qq-plot for the four populations: male/females on each of the two diets. What is the most likely explanation for the mouse weights being well approximated? What is the best explanation for all these being well approximated by the normal distribution?</p>
-<ul>
-<li>A) The CLT tells us that sample averages are approximately normal.</li>
-<li>B) This just happens to be how nature behaves. Perhaps the result of many biological factors averaging out.</li>
-<li>C) Everything measured in nature follows a normal distribution.</li>
-<li>D) Measurement error is normally distributed.</li>
-</ul>
-<p>AB?</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##female的两种情况用上面已经创建的数据controlpopulation和hfpopulation，male的正常饮食是上面的y，</span></span><br><span class="line">z &lt;- filter(data,Sex==<span class="string">"M"</span>&amp;Diet==<span class="string">"hf"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist </span><br><span class="line">mypar(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">qqnorm(y)</span><br><span class="line">qqline(y)</span><br><span class="line">qqnorm(z)</span><br><span class="line">qqline(z)</span><br><span class="line">qqnorm(controlpopulation)</span><br><span class="line">qqline(controlpopulation)</span><br><span class="line">qqnorm(hfpopulation)</span><br><span class="line">qqline(hfpopulation)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/224545.png" alt=""></p>
-<blockquote>
-<p>We will now take a sample of size 25 from the population of males on the chow diet. The average of this sample is our random variable. We will use the <code>replicate</code> to observe 10,000 realizations of this random variable. Set the seed at 1, generate these 10,000 averages. Make a histogram and qq-plot of these 10,000 numbers against the normal distribution.</p>
-<p>We can see that, as predicted by the CLT, the distribution of the random variable is very well approximated by the normal distribution.</p>
-<p> What is the average of the distribution of the sample average?</p>
-<p>  What is the standard deviation of the distribution of sample averages? </p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">y &lt;- filter(data, Sex==<span class="string">"M"</span> &amp; Diet==<span class="string">"chow"</span>) %&gt;% dplyr::select(Bodyweight) %&gt;% unlist</span><br><span class="line">avgs &lt;- replicate(<span class="number">10000</span>, mean( sample(y, <span class="number">25</span>)))</span><br><span class="line">mypar(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">hist(avgs)</span><br><span class="line">qqnorm(avgs)</span><br><span class="line">qqline(avgs)</span><br><span class="line">mean(avgs)<span class="comment">##[1] 30.96911</span></span><br><span class="line">popsd(avgs)<span class="comment">##[1] 0.8219765</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/225353.png" alt=""></p>
-<blockquote>
-<p>According to the CLT, the answer to exercise 9 should be the same as <code>mean(y)</code> You should be able to confirm that these two numbers are very close. Which of the following does the CLT tell us should be close to your answer to exercise 10? </p>
-<ul>
-<li>A) <code>popsd(y)</code></li>
-<li>B) <code>popsd(avgs)/sqrt(25)</code></li>
-<li>C) <code>sqrt(25) / popsd(y)</code></li>
-<li>D) <code>popsd(y)/sqrt(25)</code></li>
-</ul>
-<p>D</p>
-</blockquote>
-<p>这就表明样本的均值是服从均值为总体均值，标准偏差为总体的标准偏差除以样本大小的平方根的正态分布</p>
-<blockquote>
-<p>In practice we do not know σσ (<code>popsd(y)</code>) which is why we can’t use the CLT directly. This is because we see a sample and not the entire distribution. We also can’t use <code>popsd(avgs)</code> because to construct averages, we have to take 10,000 samples and this is never practical. We usually just get one sample. Instead we have to estimate <code>popsd(y)</code>. As described, what we use is the sample standard deviation. Set the seed at 1, using the <code>replicate</code> function, create 10,000 samples of 25 and now, instead of the sample average, keep the standard deviation. Look at the distribution of the sample standard deviations. It is a random variable. The real population SD is about 4.5. What proportion of the sample SDs are below 3.5?</p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pod &lt;- replicate(<span class="number">10000</span>,popsd(sample(y,<span class="number">25</span>)))</span><br><span class="line">mypar(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">hist(pod)</span><br><span class="line">qqnorm(pod)</span><br><span class="line">qqline(pod)</span><br><span class="line">mean(pod&lt;<span class="number">3.5</span>)<span class="comment">##[1] 0.1137</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/204629.png" alt=""></p>
-<p>所以样本的标准偏差也是大致服从正态分布的，大概有11%的样本的标准偏差是小于3.5的</p>
-<blockquote>
-<p>What the answer to question 12 reveals is that the denominator of the t-test is a random variable. By decreasing the sample size, you can see how this variability can increase. It therefore adds variability. The smaller the sample size, the more variability is added. The normal distribution stops providing a useful approximation. When the distribution of the population values is approximately normal, as it is for the weights, the t-distribution provides a better approximation. We will see this later on. Here we will look at the difference between the t-distribution and normal. Use the function<code>qt</code> and <code>qnorm</code> to get the quantiles of <code>x=seq(0.0001,0.9999,len=300)</code>. Do this for degrees of freedom 3, 10, 30, and 100. Which of the following is true?</p>
-<ul>
-<li>A) The t-distribution and normal distribution are always the same.</li>
-<li>B) The t-distribution has a higher average than the normal distribution.</li>
-<li>C) The t-distribution has larger tails up until 30 degrees of freedom, at which point it is practically the same as the normal distribution.</li>
-<li>D) The variance of the t-distribution grows as the degrees of freedom grow.                                       </li>
-</ul>
-<p>注意t分布的自由度等于样本量减去1</p>
-</blockquote>
-<h1 id="Central-Limit-Theorem-in-Practice"><a href="#Central-Limit-Theorem-in-Practice" class="headerlink" title="Central Limit Theorem in Practice"></a>Central Limit Theorem in Practice</h1><p>让我们看一看中心极限定理在我们的数据上的效果：我们来比较直接从总体中取样的结果和由中心极限定理预测的结果：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">head(data)</span><br><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">controlpopulation &lt;- filter(data,Sex==<span class="string">"F"</span>&amp;Diet==<span class="string">"chow"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">hfpopulation &lt;- filter(data,Sex==<span class="string">"F"</span>&amp;Diet==<span class="string">"hf"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line"><span class="comment">##使用mean计算总体的均值</span></span><br><span class="line">mu_hf &lt;- mean(hfpopulation)</span><br><span class="line">mu_control &lt;- mean(controlpopulation)</span><br><span class="line">print(mu_hf-mu_control)</span><br><span class="line"><span class="comment">##[1] 2.375517</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##我们计算总体的方差或者标准差的时候，不用sd或者var,因为这两个函数除的是N-1不是N</span></span><br><span class="line"><span class="comment">##我们可以验证一下</span></span><br><span class="line">x &lt;- controlpopulation</span><br><span class="line">N &lt;- length(x)</span><br><span class="line">populationvar &lt;- mean((x-mean(x))^<span class="number">2</span>)</span><br><span class="line">identical(var(x),populationvar)<span class="comment">##[1] FALSE</span></span><br><span class="line">identical(var(x)*(N-<span class="number">1</span>)/N,populationvar)<span class="comment">##[1] TRUE</span></span><br><span class="line"><span class="comment">##所以我们使用rafalib包中的popvar或者popsd函数</span></span><br><span class="line"><span class="keyword">library</span>(rafalib)</span><br><span class="line">sd_hf &lt;- popsd(hfpopulation)</span><br><span class="line">sd_control &lt;- popsd(controlpopulation)</span><br><span class="line"><span class="comment">##注意这些总体的参数我们实际不知道，我们要做的就是用样本去估计总体的参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##我们现在来抽样</span></span><br><span class="line">N &lt;- <span class="number">12</span></span><br><span class="line">hf &lt;- sample(hfpopulation,<span class="number">12</span>)</span><br><span class="line">control &lt;- sample(controlpopulation,<span class="number">12</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">##中心极限定理告诉我们对于很大的N，样本的均值付出正态分布，现在我们来验证一下</span></span><br><span class="line"><span class="comment">##取不同的样本大小，来计算均值差的分布</span></span><br><span class="line">Ns &lt;- c(<span class="number">3</span>,<span class="number">12</span>,<span class="number">25</span>,<span class="number">50</span>)</span><br><span class="line">B &lt;- <span class="number">10000</span></span><br><span class="line">res &lt;- sapply(Ns,<span class="keyword">function</span>(n)&#123;</span><br><span class="line">  replicate(B,mean(sample(hfpopulation,n))-mean(sample(sample(controlpopulation,n))))</span><br><span class="line">&#125;)<span class="comment">##重复10000次取样</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##我们现在可以用QQ-plot来看看样本均值的分布和正态分布的差距</span></span><br><span class="line">mypar(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> seq(along=Ns)) &#123;</span><br><span class="line">  titleavg &lt;- signif(mean(res[,i]),<span class="number">3</span>)</span><br><span class="line">  titlesd &lt;- signif(popsd(res[,i]),<span class="number">3</span>)</span><br><span class="line">  title &lt;- paste0(<span class="string">"N="</span>,Ns[i],<span class="string">" Avg="</span>,titleavg,<span class="string">" SD="</span>,titlesd)</span><br><span class="line">  qqnorm(res[,i],main=title)</span><br><span class="line">  qqline(res[,i],col=<span class="number">2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/180153.png" alt=""></p>
-<p>我们发现甚至对于样本数量只有3的抽样也逼近正态分布；因为我们的总体是类似正态分布的，所以我们的均值差也是类似正态分布的，因此我们要创造一个非正态分布的变量来看看中心极限定理的效果：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Ns &lt;- c(<span class="number">3</span>,<span class="number">12</span>,<span class="number">25</span>,<span class="number">50</span>)</span><br><span class="line">B &lt;- <span class="number">10000</span></span><br><span class="line">computetstat &lt;- <span class="keyword">function</span>(n)&#123;</span><br><span class="line">  y &lt;- sample(hfpopulation,n)</span><br><span class="line">  x &lt;- sample(controlpopulation,n)</span><br><span class="line">  (mean(y)-mean(x))/sqrt(var(y)/n+var(x)/n)<span class="comment">##这个变量就不一定服从正态分布</span></span><br><span class="line">&#125;</span><br><span class="line">res &lt;- sapply(Ns,<span class="keyword">function</span>(n)&#123;</span><br><span class="line">  replicate(B,computetstat(n))</span><br><span class="line">&#125;)</span><br><span class="line">mypar(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> seq(along=Ns))&#123;</span><br><span class="line">  qqnorm(res[,i],main = Ns[i])</span><br><span class="line">  qqline(res[,i],col=<span class="number">2</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/215647.png" alt=""></p>
-<p>所以看出来N越大，越逼近正态分布</p>
-<h2 id="练习-4"><a href="#练习-4" class="headerlink" title="练习"></a>练习</h2><h1 id="t-tests-in-Practice"><a href="#t-tests-in-Practice" class="headerlink" title="t-tests in Practice"></a>t-tests in Practice</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##读入数据</span></span><br><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">data &lt;- read.csv(<span class="string">"femalMiceWeight.csv"</span>)</span><br><span class="line">control &lt;- filter(data,Diet==<span class="string">"chow"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">treatment &lt;- filter(data,Diet==<span class="string">"hf"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">diff &lt;- mean(treatment)-mean(control)</span><br><span class="line">diff</span><br></pre></td></tr></table></figure>
-
-<p>diff是一个随机变量，在我们的空假设下（也就是两组没有差异）这个<code>diff</code>随机变量的分布的均值应该是0（因为样本的均值是等于总体的均值，所以两个样本均值的差等于两个总体均值的差，而空假设就是两组没有差异，所以两个总体的均值相等，所以差为0）；那么他的标准误( standard error )是多少？</p>
-<p>我们之前知道这个随机变量（样本的均值）的标准误是总体的标准偏差除以样本的大小：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/222647.png" alt=""></p>
-<p>一般使用样本的标准偏差去代替总体的标准偏差，所以我们可以计算SE</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sd(control)/sqrt(length(control))<span class="comment">##[1] 0.8725323</span></span><br><span class="line"><span class="comment">##注意使用sd，而不是popsd</span></span><br></pre></td></tr></table></figure>
-
-<p>这里算出的是样本均值的标准误，而我们想要的是样本均值的差的标准误<code>diff</code> </p>
-<p>我们之前学过<strong>如果X,Y是相互独立的，那么Y+/-X的方差为两者方差的和</strong> 所以：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">se &lt;- sqrt(var(treatment)/length(treatment)+var(control)/length(control))</span><br></pre></td></tr></table></figure>
-
-<p><strong>如果用一个随机变量除以他的SE，那么就会得到一个新的随机变量</strong>，这个随即变量的SE为1</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tstat &lt;- diff/se</span><br></pre></td></tr></table></figure>
-
-<p>这个比例<code>tstat</code>，就叫做t统计量，如果我们知道这个随机变量的分布，我们就可以算出P值</p>
-<p>之前我们就算过，如果样本量足够大的话，根据CTL可知：上面的<code>tstat</code>服从(0,1)的正态分布</p>
-<p>现在我们要算P值，也就是要问：有多少的正态分布的随机变量超过<code>diff</code> ?</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##pnorm(a)计算的是在正态分布中小于a的占的比例</span></span><br><span class="line">righttail &lt;- <span class="number">1</span>-pnorm(abs(tstat))</span><br><span class="line">lefttail &lt;- pnorm(-abs(tstat))</span><br><span class="line">pval &lt;- lefttail+righttail<span class="comment">##算两边的比例，也叫"tails"</span></span><br><span class="line">print(pval)</span><br><span class="line"><span class="comment">##[1] 0.0398622</span></span><br></pre></td></tr></table></figure>
-
-<p>那么0.0398622就是算出的p值，如果用cutoff为0.05的话，这个差距是显著的</p>
-<p>但是这个P值是在我们假设CLT成立的时候算出来的，但是这个样本量是足够大的吗？</p>
-<h2 id="The-t-distribution-in-Practice"><a href="#The-t-distribution-in-Practice" class="headerlink" title="The t-distribution in Practice"></a>The t-distribution in Practice</h2><p>如果一个总体是正态分布的，那么我们就不需要利用CLT就可以算出t统计量的分布，但是验证总体是正态分布的比较困难；但是对于体重来说，分布很可能是接近正态分布的，另外我们也可以对样本用QQ-plot来看看</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(rafalib)</span><br><span class="line">mypar(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line">qqnorm(treatment)</span><br><span class="line">qqline(treatment,col=<span class="number">2</span>)</span><br><span class="line">qqnorm(control)</span><br><span class="line">qqline(control,col=<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/230821.png" alt=""></p>
-<p>还是比较接近的</p>
-<p>所以这里<code>tstat</code>服从t分布，t分布还有一个叫自由度的参数</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">t.test(treatment,control)</span><br><span class="line"><span class="comment">##</span></span><br><span class="line"><span class="comment">## 	Welch Two Sample t-test</span></span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## data:  treatment and control</span></span><br><span class="line"><span class="comment">## t = 2.0552, df = 20.236, p-value = 0.053</span></span><br><span class="line"><span class="comment">## alternative hypothesis: true difference in means is not equal to 0</span></span><br><span class="line"><span class="comment">## 95 percent confidence interval:</span></span><br><span class="line"><span class="comment">##  -0.04296563  6.08463229</span></span><br><span class="line"><span class="comment">## sample estimates:</span></span><br><span class="line"><span class="comment">## mean of x mean of y </span></span><br><span class="line"><span class="comment">##  26.83417  23.81333</span></span><br><span class="line">result &lt;- t.test(treatment,control)</span><br><span class="line">result$p.value</span><br><span class="line"><span class="comment">##[1] 0.05299888</span></span><br></pre></td></tr></table></figure>
-
-<p>这个结果与之前算出的结果不太一样，原因是在CLT中是将<code>tstat</code>的分母视为固定的（也就是diff的标准误）而在t分布中将其视为一个随机变量；实际上样本量越小，这个分母的变化越大</p>
-<h2 id="Running-the-t-test-in-practice"><a href="#Running-the-t-test-in-practice" class="headerlink" title="Running the t-test in practice"></a>Running the t-test in practice</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">dat &lt;- read.csv(<span class="string">"mice_pheno.csv"</span>)</span><br><span class="line">control &lt;- filter(dat,Diet==<span class="string">"chow"</span>) %&gt;% select(Bodyweight) </span><br><span class="line">treatment &lt;- filter(dat,Diet==<span class="string">"hf"</span>) %&gt;% select(Bodyweight) </span><br><span class="line">t.test(treatment,control)</span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## 	Welch Two Sample t-test</span></span><br><span class="line"><span class="comment">## </span></span><br><span class="line"><span class="comment">## data:  treatment and control</span></span><br><span class="line"><span class="comment">## t = 7.1932, df = 735.02, p-value = 1.563e-12</span></span><br><span class="line"><span class="comment">## alternative hypothesis: true difference in means is not equal to 0</span></span><br><span class="line"><span class="comment">## 95 percent confidence interval:</span></span><br><span class="line"><span class="comment">##  2.231533 3.906857</span></span><br><span class="line"><span class="comment">## sample estimates:</span></span><br><span class="line"><span class="comment">## mean of x mean of y </span></span><br><span class="line"><span class="comment">##  30.48201  27.41281</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Confidence-Intervals"><a href="#Confidence-Intervals" class="headerlink" title="Confidence Intervals"></a>Confidence Intervals</h1><h2 id="Confidence-Intervals-1"><a href="#Confidence-Intervals-1" class="headerlink" title="Confidence Intervals"></a>Confidence Intervals</h2><p>统计学学上的显著性并不能保证科学上的显著性，比如在两组足够大的样本中，我们检测到了1毫克的显著差异，那么这个差异真的重要吗，这不见得。所以我们在展示我们算出的p值的同时需要报告置信区间（ confidence intervals ）</p>
-<p>置信区间包括估计的效应大小（ effect size ，例如上面说的体重的差距）以及与此估计相关的不确定性的信息</p>
-<h2 id="Confidence-Interval-For-Population-Mean"><a href="#Confidence-Interval-For-Population-Mean" class="headerlink" title="Confidence Interval For Population Mean"></a>Confidence Interval For Population Mean</h2><p>我们先来构建对照组female鼠的总体均值的置信区间</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data &lt;- read.csv(<span class="string">"mice_pheno.csv"</span>)</span><br><span class="line">chowpopulation &lt;- data[data$Sex==<span class="string">"F"</span>&amp;data$Diet==<span class="string">"chow"</span>,<span class="number">3</span>]</span><br><span class="line">mu_chow &lt;- mean(chowpopulation)</span><br><span class="line">print(mu_chow)</span><br><span class="line"><span class="comment">##[1] 23.89338</span></span><br></pre></td></tr></table></figure>
-
-<p>我们想要的是估计这个参数（mu_chow），所以我们通过样本去估计</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">N &lt;- <span class="number">30</span></span><br><span class="line">chow &lt;- sample(chowpopulation,N)</span><br><span class="line">print(mean(chow))</span><br><span class="line"><span class="comment">##[1] 24.837</span></span><br></pre></td></tr></table></figure>
-
-<p>这个是随机变量，所以直接用样本的均值去估计总体的均值是不恰当的</p>
-<p>CLT告诉我们<code>mean(chow)</code>服从均值<code>mean(chowpopulation)</code>和标准误<code>sd(chow)/sqrt(N)</code>的正态分布</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">se &lt;- sd(chow)/sqrt(N)</span><br><span class="line">print(se)</span><br><span class="line"><span class="comment">##[1] 0.6213248</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Defining-The-Interval"><a href="#Defining-The-Interval" class="headerlink" title="Defining The Interval"></a>Defining The Interval</h2><p> 95％的置信区间（我们可以使用95％以外的百分比）是一个随机区间，有95％的概率落在我们估计的参数上 ；</p>
-<p>注意： 说95％的随机区间将落在真实值上（我们上面的定义）与说真实值有95％的概率落在我们的区间中是不同的                                          </p>
-<p>CLT告诉我们<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/222819.png" alt="">      服从均值为1，标准偏差为1的正态分布，所以我们可以计算出<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/223033.png" alt="">       的概率</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pnorm(<span class="number">2</span>)-pnorm(-<span class="number">2</span>)</span><br><span class="line"><span class="comment">##[1] 0.9544997</span></span><br><span class="line"><span class="comment">##我们可以得到比2更精确的数字</span></span><br><span class="line">qnorm(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>)<span class="comment">##[1] 1.959964</span></span><br><span class="line">pnorm(<span class="number">1.959964</span>)-pnorm(-<span class="number">1.959964</span>)</span><br><span class="line"><span class="comment">##[1] 0.95</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/232322.png" alt=""></p>
-<p>我们现在将上面的式子进行一下变换，使得中间只留下μx，得到：</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/223753.png" alt="">              </p>
-<p>那么这个区间的概率是95%，也就是说这个随机区间的95%包含真正的均值</p>
-<p>我们可以通过模拟实验来说明这个逻辑</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Q &lt;- qnorm(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>)</span><br><span class="line">interval &lt;- c(mean(chow)-Q*se,mean(chow)+Q*se)</span><br><span class="line">interval</span><br><span class="line">interval[<span class="number">1</span>] &lt; mu_chow &amp; interval[<span class="number">2</span>] &gt; mu_chow<span class="comment">##[1] TRUE</span></span><br><span class="line"><span class="keyword">library</span>(rafalib)</span><br><span class="line">B &lt;- <span class="number">250</span></span><br><span class="line">mypar()</span><br><span class="line">plot(mean(chowpopulation)+c(-<span class="number">7</span>,<span class="number">7</span>),c(<span class="number">1</span>,<span class="number">1</span>),type = <span class="string">"n"</span>,xlab=<span class="string">"weight"</span>,ylab = <span class="string">"interval"</span>,ylim = c(<span class="number">1</span>,B))<span class="comment">##这里1，1可以取其他的值，type=n表示不画点</span></span><br><span class="line">abline(v=mean(chowpopulation))</span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:B) &#123;</span><br><span class="line">  chow &lt;- sample(chowpopulation,N)</span><br><span class="line">  se &lt;- sd(chow)/sqrt(N)</span><br><span class="line">  interval &lt;- c(mean(chow)-Q*se,mean(chow)+Q*se)</span><br><span class="line">  covered &lt;- mean(chowpopulation) &lt;= interval[<span class="number">2</span>]&amp;mean(chowpopulation)&gt;=interval[<span class="number">1</span>]</span><br><span class="line">  color &lt;- ifelse(covered,<span class="string">"green"</span>,<span class="string">"red"</span>)<span class="comment">##绿色的是区间覆盖到真实的总体均值，而红色的表明没有覆盖到</span></span><br><span class="line">  lines(interval,c(i,i),col=color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/160106.png" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/160148.png" alt=""></p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/160218.png" alt=""></p>
-<h2 id="Small-Sample-Size-And-The-CLT"><a href="#Small-Sample-Size-And-The-CLT" class="headerlink" title="Small Sample Size And The CLT"></a>Small Sample Size And The CLT</h2><p>上面我们的样本量是30，那如果是更小的样本量呢，这次我们取5</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mypar()</span><br><span class="line">plot(mean(chowpopulation)+c(-<span class="number">7</span>,<span class="number">7</span>),c(<span class="number">1</span>,<span class="number">1</span>),type = <span class="string">"n"</span>,xlab = <span class="string">"weight"</span>,ylab = <span class="string">"interval"</span>,ylim = c(<span class="number">1</span>,B))</span><br><span class="line">abline(v=mean(chowpopulation))</span><br><span class="line">Q &lt;- qnorm(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>)</span><br><span class="line">N &lt;-<span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:B) &#123;</span><br><span class="line">  chow &lt;- sample(chowpopulation,N)</span><br><span class="line">  se &lt;- sd(chow)/sqrt(N)</span><br><span class="line">  interval &lt;- c(mean(chow)-Q*se,mean(chow)+Q*se)</span><br><span class="line">  covered &lt;- mean(chowpopulation)&lt;=interval[<span class="number">2</span>]&amp;interval[<span class="number">1</span>]&lt;=mean(chowpopulation)</span><br><span class="line">  color &lt;- ifelse(covered,<span class="string">"green"</span>,<span class="string">"red"</span>)</span><br><span class="line">  lines(interval,c(i,i),col=color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/164321.png" alt=""></p>
-<p>可以看到这个区间变宽了（分母由<code>sqrt(30)</code>变成了<code>sqrt(5)</code>);另外我们看到红色的未覆盖均值的区间明显变多，这是因为此时样本量比较小，不适应CTL,不服从正态分布了，变得比正态分布更矮，两侧的尾巴上数据比较多了，所以我们使用<code>qnorm()</code>去计算区间就不对了；那么这个时候我们就要用t分布了(使用<code>qt()</code>)</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mypar()</span><br><span class="line">plot(mean(chowpopulation)+c(-<span class="number">7</span>,<span class="number">7</span>),c(<span class="number">1</span>,<span class="number">1</span>),type = <span class="string">"n"</span>,xlab = <span class="string">"weight"</span>,ylab = <span class="string">"interval"</span>,ylim = c(<span class="number">1</span>,B))</span><br><span class="line">abline(v=mean(chowpopulation))</span><br><span class="line"><span class="comment">##Q &lt;- qnorm(1-0.05/2)不再用</span></span><br><span class="line">Q &lt;- qt(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>,df=<span class="number">4</span>)<span class="comment">##t分布的自度度等于N-1</span></span><br><span class="line">N &lt;-<span class="number">5</span></span><br><span class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:B) &#123;</span><br><span class="line">  chow &lt;- sample(chowpopulation,N)</span><br><span class="line">  se &lt;- sd(chow)/sqrt(N)</span><br><span class="line">  interval &lt;- c(mean(chow)-Q*se,mean(chow)+Q*se)</span><br><span class="line">  covered &lt;- mean(chowpopulation)&lt;=interval[<span class="number">2</span>]&amp;interval[<span class="number">1</span>]&lt;=mean(chowpopulation)</span><br><span class="line">  color &lt;- ifelse(covered,<span class="string">"green"</span>,<span class="string">"red"</span>)</span><br><span class="line">  lines(interval,c(i,i),col=color)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/165105.png" alt=""></p>
-<p>这时，区间长度更加大了，因为t分布有着更胖的尾巴</p>
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/165321.png" alt=""></p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">qt(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>,df=<span class="number">4</span>)</span><br><span class="line"><span class="comment">##[1] 2.776445</span></span><br><span class="line">qnorm(<span class="number">1</span>-<span class="number">0.05</span>/<span class="number">2</span>)</span><br><span class="line"><span class="comment">##[1] 1.959964</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Connection-Between-Confidence-Intervals-and-p-values"><a href="#Connection-Between-Confidence-Intervals-and-p-values" class="headerlink" title="Connection Between Confidence Intervals and p-values"></a>Connection Between Confidence Intervals and p-values</h2><p>置信区间也能提供关于P值的信息（0.05，0.01）</p>
-<p>如果我们检测关于两个总体均值的差值的(t检验）P值<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/195959.png" alt=""></p>
-<p>如果我们使用CTL，得出95%置信区间<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/200208.png" alt="">  并且该区间中不包括0，所以要么<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/200430.png" alt=""></p>
-<p>要么<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20191126200603.png" alt=""></p>
-<p>所以：<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/200706_LI.jpg" alt=""></p>
-<p>这表明t统计量是大于2（更精确的是<code>qnorm(0.05/2)</code>)或者小于-2，说明P值是小于0.05的</p>
-<p>不用CTL，用t分布也是一样算</p>
-<p>所以，如果置信区间不包括0，那么p值就小于相应的值（95%→0.05，99%→0.01）</p>
-<h1 id="Power-calculations"><a href="#Power-calculations" class="headerlink" title="Power calculations"></a>Power calculations</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p> 之前的小鼠体重的例子中，由于我们已经知道两个总体的数据，所以我们可以算出来两个群体均值的差距大概有10%（相对于正常组）</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(dplyr)</span><br><span class="line">data &lt;- read.csv(<span class="string">"mice_pheno.csv"</span>)</span><br><span class="line">controlpopulation &lt;- filter(data,Sex==<span class="string">"F"</span>&amp;Diet==<span class="string">"chow"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">hfpopulation &lt;- filter(data,Sex==<span class="string">"F"</span>&amp;Diet==<span class="string">"hf"</span>)%&gt;%dplyr::select(Bodyweight)%&gt;%unlist</span><br><span class="line">muhf &lt;- mean(hfpopulation)</span><br><span class="line">mucol &lt;- mean(controlpopulation)</span><br><span class="line">print(muhf-mucol)</span><br><span class="line"><span class="comment">##[1] 2.375517</span></span><br><span class="line">print((muhf-mucol)/mucol*<span class="number">100</span>)</span><br><span class="line"><span class="comment">##[1] 9.942157</span></span><br></pre></td></tr></table></figure>
-
-<p>但是有的时候，选出的样本进行t检验，并不能得到显著性的差异</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set.seed(<span class="number">1</span>)</span><br><span class="line">N &lt;- <span class="number">5</span></span><br><span class="line">hf &lt;- sample(hfpopulation,N)</span><br><span class="line">control &lt;- sample(controlpopulation,N)</span><br><span class="line">t.test(hf,control)$p.value<span class="comment">#[1] 0.5806661,也就是说不能拒绝原假设</span></span><br></pre></td></tr></table></figure>
-
-<p>但是不能拒绝原假设并不等于接受原假设，那么在这个特殊的例子中，我们就可以说没有足够的power</p>
-<h2 id="Types-Of-Error"><a href="#Types-Of-Error" class="headerlink" title="Types Of Error"></a>Types Of Error</h2><p>![](<a href="https://raw.githubusercontent.com/wt12318/picgo/master/img/222204_LI" target="_blank" rel="noopener">https://raw.githubusercontent.com/wt12318/picgo/master/img/222204_LI</a> (2).jpg)</p>
-<p>所以第一类错误也叫<strong>假阳性</strong>（这个要注意，【阳性和阴性是对于拒绝不拒绝来讲的】） ， 那么我们为什么不用一个非常小的P值来减少范第一种错误的概率呢？因为我们还可能范第二种错误，也就是当原假设错误的时候没有拒绝原假设（<strong>假阴性</strong>）上面的例子就是一个假阴性的例子（原假设，没有差异是错误的，但是我们没有拒绝他）此时如果我们将cut-off定为0.25，那么我们就可以拒绝这个错误的原假设，但是此时范第一类错误的概率又会上升，所以要在这两者间找到一个平衡</p>
-<h2 id="The-0-05-and-0-01-Cut-offs-Are-Arbitrary"><a href="#The-0-05-and-0-01-Cut-offs-Are-Arbitrary" class="headerlink" title="The 0.05 and 0.01 Cut-offs Are Arbitrary"></a>The 0.05 and 0.01 Cut-offs Are Arbitrary</h2><h2 id="Power-Calculation"><a href="#Power-Calculation" class="headerlink" title="Power Calculation"></a>Power Calculation</h2>
+          <p>统计学基础概念及R实践</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/25/statwithR/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -621,10 +250,24 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-25 16:30:48 / 修改时间：18:50:55" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:48+08:00">2020-02-25</time>
+              <time title="创建时间：2020-02-25 16:30:48 / 修改时间：20:00:48" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:48+08:00">2020-02-25</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -635,7 +278,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="（批量）对文件修改"><a href="#（批量）对文件修改" class="headerlink" title="（批量）对文件修改"></a>（批量）对文件修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line">dir=$(ls -l ./ |awk '!/^d/ &#123;print $NF&#125;' |grep -i "maf")</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#将注释行删除</span></span></span><br><span class="line">for i in $dir</span><br><span class="line">do</span><br><span class="line">grep -v '^#' $i &gt; ./promafs/$i ##sed '/^#/d' &lt;file&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">grep -v <span class="string">'^$'</span> xxx，删除空行，或者 sed <span class="string">'/^$/d'</span> &lt;file&gt;</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#删除文件的第一行</span></span></span><br><span class="line">sed -i '1d' filename</span><br><span class="line">sed -i 'nd' filename##第n行</span><br><span class="line">sed -i '1,3d' filename##第1和第3行</span><br></pre></td></tr></table></figure>
+          <p>常用的linux命令的学习</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/25/linux%E7%AC%94%E8%AE%B0/#more" rel="contents">
@@ -687,10 +330,24 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-25 16:30:11 / 修改时间：18:50:48" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:11+08:00">2020-02-25</time>
+              <time title="创建时间：2020-02-25 16:30:11 / 修改时间：20:04:27" itemprop="dateCreated datePublished" datetime="2020-02-25T16:30:11+08:00">2020-02-25</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -701,8 +358,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="第二章：统计学习"><a href="#第二章：统计学习" class="headerlink" title="第二章：统计学习"></a>第二章：统计学习</h1><h2 id="什么是统计学习？"><a href="#什么是统计学习？" class="headerlink" title="什么是统计学习？"></a>什么是统计学习？</h2><p>统计学习就是使用一系列的方法去估计输入和输出之间的关系<img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200206165310.png" alt=""></p>
-<p>也就是这里面的f</p>
+          <p>统计学习导论与R应用（主要是监督学习）</p>
+<p>多元统计方法（主要是非监督学习）</p>
+<p>机器学习与R语言（R实践操作）</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/25/%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0/#more" rel="contents">
@@ -754,10 +412,24 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-25 15:49:36 / 修改时间：18:50:40" itemprop="dateCreated datePublished" datetime="2020-02-25T15:49:36+08:00">2020-02-25</time>
+              <time title="创建时间：2020-02-25 15:49:36 / 修改时间：20:01:44" itemprop="dateCreated datePublished" datetime="2020-02-25T15:49:36+08:00">2020-02-25</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>21k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -768,14 +440,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Data-visualisation"><a href="#Data-visualisation" class="headerlink" title="Data visualisation"></a>Data visualisation</h1><p>我们先来看一个例子，有着大引擎的汽车是否比小引擎的汽车消耗的油要多？</p>
-<p>我们可以用<code>ggplot2</code>包中的mpg数据：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ggplot(data=map)+</span><br><span class="line">   geom_point(mapping=aes(x=displ,y=hwy))</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/2020_1.png" alt=""></p>
-<p>从图上看，引擎大小与燃油效率成负相关的关系</p>
-<p>首先<code>ggplot()</code>指定绘图的数据集，并创建了一个空的画布；<code>geom_point()</code>在这个空画布的基础上添加了一个散点图的图层，mapping参数定义了数据集中的参数是如何和图中的特征联系在一起，在这里将两个变量给了坐标轴</p>
-<p>我们首先来看<code>mapping</code></p>
+          <p>R for data science 学习笔记</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/02/25/R_for_data_science/#more" rel="contents">
@@ -896,6 +561,18 @@
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Wu tao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">51k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">46 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
   </div>
