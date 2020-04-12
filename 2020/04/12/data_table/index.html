@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="data.table 包 学习笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="data_table">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/data_table/index.html">
+<meta property="og:site_name" content="Wutao&#39;s Blog">
+<meta property="og:description" content="data.table 包 学习笔记">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-12T14:51:31.442Z">
+<meta property="article:modified_time" content="2020-04-12T14:52:12.310Z">
+<meta property="article:author" content="Wu tao">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/12/data_table/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>data_table | Wutao's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wutao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/data_table/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wu tao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wutao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          data_table
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-12 22:51:31 / 修改时间：22:52:12" itemprop="dateCreated datePublished" datetime="2020-04-12T22:51:31+08:00">2020-04-12</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Introduction-to-data-table"><a href="#Introduction-to-data-table" class="headerlink" title="Introduction to data.table"></a>Introduction to data.table</h1><h2 id="导入数据"><a href="#导入数据" class="headerlink" title="导入数据"></a>导入数据</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">library</span>(data.table)</span><br><span class="line"><span class="comment">##input data </span></span><br><span class="line">input &lt;- <span class="keyword">if</span>(file.exists(<span class="string">"flights14.csv"</span>))&#123;</span><br><span class="line">  <span class="string">"flights14.csv"</span></span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">  <span class="string">"https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv"</span></span><br><span class="line">&#125;</span><br><span class="line">flights &lt;- fread(input)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Basics"><a href="#Basics" class="headerlink" title="Basics"></a>Basics</h3><p><code>data.table</code>是增强版的<code>data.frame</code> </p>
+<p>和<code>data.frame()</code>一样，我们可以使用<code>data.table()</code>来创建一个<code>data.table</code>:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DT &lt;- data.table(</span><br><span class="line">  ID = c(<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"c"</span>),</span><br><span class="line">  a = <span class="number">1</span>:<span class="number">6</span>,</span><br><span class="line">  b = <span class="number">7</span>:<span class="number">12</span>,</span><br><span class="line">  c = <span class="number">13</span>:<span class="number">18</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># ID a  b  c</span></span><br><span class="line"><span class="comment"># 1:  b 1  7 13</span></span><br><span class="line"><span class="comment"># 2:  b 2  8 14</span></span><br><span class="line"><span class="comment"># 3:  b 3  9 15</span></span><br><span class="line"><span class="comment"># 4:  a 4 10 16</span></span><br><span class="line"><span class="comment"># 5:  a 5 11 17</span></span><br><span class="line"><span class="comment"># 6:  c 6 12 18</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以使用<code>setDT()</code>和<code>as.data.table()</code>来将其他的数据转化为<code>data.table</code>,前者是针对<code>data.frame</code>和<code>list</code>，后者是对其他的数据结构进行操作（这两者还有更多的不同，见后）</p>
+<p>与<code>tibble</code>类似，<code>data.table</code>也不会将字符转化成因子</p>
+<p><code>data.table</code>的常用的使用方式是：<code>DT[i,j,by]</code>,也就是选择/排序i行对j列操作，通过by分组</p>
+<p><code>flights</code>数据：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">    year month day dep_delay arr_delay carrier origin dest air_time distance hour</span><br><span class="line">     <span class="number">1</span>: <span class="number">2014</span>     <span class="number">1</span>   <span class="number">1</span>        <span class="number">14</span>        <span class="number">13</span>      AA    JFK  LAX      <span class="number">359</span>     <span class="number">2475</span>    <span class="number">9</span></span><br><span class="line">     <span class="number">2</span>: <span class="number">2014</span>     <span class="number">1</span>   <span class="number">1</span>        -<span class="number">3</span>        <span class="number">13</span>      AA    JFK  LAX      <span class="number">363</span>     <span class="number">2475</span>   <span class="number">11</span></span><br><span class="line">     <span class="number">3</span>: <span class="number">2014</span>     <span class="number">1</span>   <span class="number">1</span>         <span class="number">2</span>         <span class="number">9</span>      AA    JFK  LAX      <span class="number">351</span>     <span class="number">2475</span>   <span class="number">19</span></span><br><span class="line">     <span class="number">4</span>: <span class="number">2014</span>     <span class="number">1</span>   <span class="number">1</span>        -<span class="number">8</span>       -<span class="number">26</span>      AA    LGA  PBI      <span class="number">157</span>     <span class="number">1035</span>    <span class="number">7</span></span><br><span class="line">     <span class="number">5</span>: <span class="number">2014</span>     <span class="number">1</span>   <span class="number">1</span>         <span class="number">2</span>         <span class="number">1</span>      AA    JFK  LAX      <span class="number">350</span>     <span class="number">2475</span>   <span class="number">13</span></span><br><span class="line">    ---                                                                              </span><br><span class="line"><span class="number">253312</span>: <span class="number">2014</span>    <span class="number">10</span>  <span class="number">31</span>         <span class="number">1</span>       -<span class="number">30</span>      UA    LGA  IAH      <span class="number">201</span>     <span class="number">1416</span>   <span class="number">14</span></span><br><span class="line"><span class="number">253313</span>: <span class="number">2014</span>    <span class="number">10</span>  <span class="number">31</span>        -<span class="number">5</span>       -<span class="number">14</span>      UA    EWR  IAH      <span class="number">189</span>     <span class="number">1400</span>    <span class="number">8</span></span><br><span class="line"><span class="number">253314</span>: <span class="number">2014</span>    <span class="number">10</span>  <span class="number">31</span>        -<span class="number">8</span>        <span class="number">16</span>      MQ    LGA  RDU       <span class="number">83</span>      <span class="number">431</span>   <span class="number">11</span></span><br><span class="line"><span class="number">253315</span>: <span class="number">2014</span>    <span class="number">10</span>  <span class="number">31</span>        -<span class="number">4</span>        <span class="number">15</span>      MQ    LGA  DTW       <span class="number">75</span>      <span class="number">502</span>   <span class="number">11</span></span><br><span class="line"><span class="number">253316</span>: <span class="number">2014</span>    <span class="number">10</span>  <span class="number">31</span>        -<span class="number">5</span>         <span class="number">1</span>      MQ    LGA  SDF      <span class="number">110</span>      <span class="number">659</span>    <span class="number">8</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在i中对行进行选择："><a href="#在i中对行进行选择：" class="headerlink" title="在i中对行进行选择："></a>在<code>i</code>中对行进行选择：</h3><p>比如我们要在<code>filghts</code>数据中选择六月份起飞机场为<code>JFK</code>的航班：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6L</span>]</span><br></pre></td></tr></table></figure>
+
+<p>也可以用<code>on</code>来选择：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans1 &lt;- flights[.(<span class="string">"JFK"</span>,<span class="number">6</span>),on=.(origin,month)]<span class="comment">##与上面等价</span></span><br></pre></td></tr></table></figure>
+
+<p>在<code>[]</code>中对行进行操作，是不需要加逗号的（加了也可以，就是不太简洁）,不需要用<code>$</code>来指定变量，而在<code>data.frame</code>中是必须要加逗号，用<code>$</code>来指定变量，如果不加逗号选择的是列：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flights_df &lt;- as.data.frame(flights)</span><br><span class="line"></span><br><span class="line">ans_df &lt;- flights_df[flights_df$origin==<span class="string">"JFK"</span> &amp; flights_df$month==<span class="number">6L</span>]</span><br><span class="line"><span class="comment"># Error in `[.data.frame`(flights_df, flights_df$origin == "JFK" &amp; flights_df$month ==  : </span></span><br><span class="line"><span class="comment">#                           undefined columns selected</span></span><br><span class="line">ans_df &lt;- flights_df[flights_df$origin==<span class="string">"JFK"</span> &amp; flights_df$month==<span class="number">6L</span>,]</span><br></pre></td></tr></table></figure>
+
+<p>也可以用数字索引来选择行：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[<span class="number">1</span>:<span class="number">2</span>]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#    year month day dep_delay arr_delay carrier origin dest air_time distance hour</span></span><br><span class="line"><span class="comment"># 1: 2014     1   1        14        13      AA    JFK  LAX      359     2475    9</span></span><br><span class="line"><span class="comment"># 2: 2014     1   1        -3        13      AA    JFK  LAX      363     2475   11</span></span><br></pre></td></tr></table></figure>
+
+<p>对<code>flights</code>进行排序，先以<code>origin</code>列以升序排序，再以<code>dest</code>列以降序排序：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[order(origin,-dest)]</span><br></pre></td></tr></table></figure>
+
+<p>注意：如果在<code>data.table</code>里面用<code>order</code>的话，会自动的使用<code>data.table</code>中的函数<code>forder()</code>来替代<code>order</code>，是R base的<code>order</code>的增强版 </p>
+<h3 id="在j中选择列"><a href="#在j中选择列" class="headerlink" title="在j中选择列"></a>在<code>j</code>中选择列</h3><p>在选择类列的时候是要加逗号的，并且返回的是向量（只选一列的时候）：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[,arr_delay]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment"># [1]  13  13   9 -26   1   0</span></span><br></pre></td></tr></table></figure>
+
+<p>如果我们想要返回<code>data.table</code>，就要加上<code>list()</code>（也可以用<code>.()</code>代替）:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[,list(arr_delay)]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#    arr_delay</span></span><br><span class="line"><span class="comment"># 1:        13</span></span><br><span class="line"><span class="comment"># 2:        13</span></span><br><span class="line"><span class="comment"># 3:         9</span></span><br><span class="line"><span class="comment"># 4:       -26</span></span><br><span class="line"><span class="comment"># 5:         1</span></span><br><span class="line"><span class="comment"># 6:         0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##the same as</span></span><br><span class="line">ans &lt;- flights[,.(arr_delay)]</span><br><span class="line"></span><br><span class="line"><span class="comment">##select two columns</span></span><br><span class="line">ans &lt;- flights[, .(arr_delay, dep_delay)]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#    arr_delay dep_delay</span></span><br><span class="line"><span class="comment"># 1:        13        14</span></span><br><span class="line"><span class="comment"># 2:        13        -3</span></span><br><span class="line"><span class="comment"># 3:         9         2</span></span><br><span class="line"><span class="comment"># 4:       -26        -8</span></span><br><span class="line"><span class="comment"># 5:         1         2</span></span><br><span class="line"><span class="comment"># 6:         0         4</span></span><br></pre></td></tr></table></figure>
+
+<p>在选择列的同时也可以对其进行重命名：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[, .(delay_arr = arr_delay, delay_dep = dep_delay)]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#    delay_arr delay_dep</span></span><br><span class="line"><span class="comment"># 1:        13        14</span></span><br><span class="line"><span class="comment"># 2:        13        -3</span></span><br><span class="line"><span class="comment"># 3:         9         2</span></span><br><span class="line"><span class="comment"># 4:       -26        -8</span></span><br><span class="line"><span class="comment"># 5:         1         2</span></span><br><span class="line"><span class="comment"># 6:         0         4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在j中进行计算"><a href="#在j中进行计算" class="headerlink" title="在j中进行计算"></a>在<code>j</code>中进行计算</h3><p>比如可以看在所有的航班中总的延误小于0的航班数目：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[,sum((arr_delay+dep_delay)&lt;<span class="number">0</span>)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment"># [1] 141814</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##上面的代码就相当于先是创建了一个逻辑变量：(arr_delay+dep_delay)&lt;0，再对该变量求和，也就是算出TURE的数量</span></span><br><span class="line">ans &lt;- flights[,.((arr_delay+dep_delay)&lt;<span class="number">0</span>)]<span class="comment">##没有给变量名，所以就是V1</span></span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#      V1</span></span><br><span class="line"><span class="comment"># 1: FALSE</span></span><br><span class="line"><span class="comment"># 2: FALSE</span></span><br><span class="line"><span class="comment"># 3: FALSE</span></span><br><span class="line"><span class="comment"># 4:  TRUE</span></span><br><span class="line"><span class="comment"># 5: FALSE</span></span><br><span class="line"><span class="comment"># 6: FALSE</span></span><br><span class="line">ans &lt;- ans[,sum(V1)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment"># [1] 141814</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在i中选择，再在j中计算"><a href="#在i中选择，再在j中计算" class="headerlink" title="在i中选择，再在j中计算"></a>在<code>i</code>中选择，再在<code>j</code>中计算</h3><p>计算在六月份起始机场为<code>JFK</code>的所有航班的平均抵达和离开的延误时间：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span>,.(mean_arr=mean(arr_delay),mean_dep=mean(dep_delay))]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#       m_arr    m_dep</span></span><br><span class="line"><span class="comment"># 1: 5.839349 9.807884</span></span><br></pre></td></tr></table></figure>
+
+<p>在2014年6月份从<code>JFK</code>起飞的航班有多少？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span> &amp; year==<span class="number">2014</span>,length(year)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment"># [1] 8422</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##equal to</span></span><br><span class="line">flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span> &amp; year==<span class="number">2014</span>,] %&gt;% nrow()</span><br></pre></td></tr></table></figure>
+
+<p><code>data.table</code>有一个内置的特殊的变量:<code>.N</code>，该变量中储存的是当前group的观察值的数量，与<code>by</code>一起用的时候非常有用，如果没有<code>gruop by</code>操作，就会返回子集的行数：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span> &amp; year==<span class="number">2014</span>,.N]</span><br><span class="line"><span class="comment"># [1] 8422</span></span><br></pre></td></tr></table></figure>
+
+<p>使用<code>length()</code>或者内置的<code>.N</code>要比上面的<code>nrow</code>要快：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">nrowt &lt;- <span class="keyword">function</span>(x)&#123;</span><br><span class="line">  t1 &lt;- proc.time()</span><br><span class="line">  flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span> &amp; year==<span class="number">2014</span>,] %&gt;% nrow()</span><br><span class="line">  t2 &lt;- proc.time()</span><br><span class="line">  <span class="keyword">return</span>(t2-t1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">nt &lt;- <span class="keyword">function</span>(x)&#123;</span><br><span class="line">  t1 &lt;- proc.time()</span><br><span class="line">  flights[origin==<span class="string">"JFK"</span> &amp; month==<span class="number">6</span> &amp; year==<span class="number">2014</span>,.N]</span><br><span class="line">  t2 &lt;- proc.time()</span><br><span class="line">  <span class="keyword">return</span>(t2-t1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">nrowt(<span class="number">1</span>)</span><br><span class="line">用户 系统 流逝 </span><br><span class="line"><span class="number">0.00</span> <span class="number">0.03</span> <span class="number">0.01</span> </span><br><span class="line">nt(<span class="number">1</span>)</span><br><span class="line">用户 系统 流逝 </span><br><span class="line">   <span class="number">0</span>    <span class="number">0</span>    <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>可能的原因：<code>nrow()</code>是将前面取得子集整个读入内存，再算这个子集有多少行，而<code>length()</code>和<code>.N</code>都是计算单个变量的行数，效率更高</p>
+<h3 id="在j中根据列名来选择列，就像在data-frame一样"><a href="#在j中根据列名来选择列，就像在data-frame一样" class="headerlink" title="在j中根据列名来选择列，就像在data.frame一样"></a>在<code>j</code>中根据列名来选择列，就像在<code>data.frame</code>一样</h3><p>之前讲过在<code>data.table</code>中选择列的时候，要加<code>.</code>，还有一种方法，就是用向量名（字符）来选取列：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[, .(arr_delay, dep_delay)]</span><br><span class="line">ans</span><br><span class="line">ans &lt;- flights[, c(<span class="string">"arr_delay"</span>, <span class="string">"dep_delay"</span>)]</span><br><span class="line">ans</span><br><span class="line"></span><br><span class="line"><span class="comment">##但是如果不加引号，返回的就是向量</span></span><br><span class="line">ans &lt;- flights[, c(arr_delay, dep_delay)]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#[1]  13  13   9 -26   1   0</span></span><br></pre></td></tr></table></figure>
+
+<p>如果将需要的列存在字符向量中，可以使用<code>..</code>或者<code>with</code>来选择相应的列：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">select_col &lt;- c(<span class="string">"arr_delay"</span>, <span class="string">"dep_delay"</span>)</span><br><span class="line">flights[,..select_col]</span><br><span class="line"><span class="comment">#         arr_delay dep_delay</span></span><br><span class="line"><span class="comment">#      1:        13        14</span></span><br><span class="line"><span class="comment">#      2:        13        -3</span></span><br><span class="line"><span class="comment">#      3:         9         2</span></span><br><span class="line"><span class="comment">#      4:       -26        -8</span></span><br><span class="line"><span class="comment">#      5:         1         2</span></span><br><span class="line"><span class="comment">#     ---                    </span></span><br><span class="line"><span class="comment"># 253312:       -30         1</span></span><br><span class="line"><span class="comment"># 253313:       -14        -5</span></span><br><span class="line"><span class="comment"># 253314:        16        -8</span></span><br><span class="line"><span class="comment"># 253315:        15        -4</span></span><br><span class="line"><span class="comment"># 253316:         1        -5</span></span><br></pre></td></tr></table></figure>
+
+<p>这一点可以类比于unix上的<code>..</code>，表示上级目录，在这个就表示在<code>global environment</code>上寻找相应的向量</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flights[,select_col,with=<span class="literal">F</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>with</code>和base R的<code>with</code>是类似的，都是将变量与数据框联系起来，<code>data.table</code>中的<code>with</code>默认是<code>T</code>，将其改成<code>F</code>就表示前面的值不是<code>data.table</code>的变量</p>
+<h2 id="Aggregations"><a href="#Aggregations" class="headerlink" title="Aggregations"></a>Aggregations</h2><h3 id="通过by来分组"><a href="#通过by来分组" class="headerlink" title="通过by来分组"></a>通过<code>by</code>来分组</h3><p>如何得到每一个起点的航班数？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[, .(.N), by = .(origin)]<span class="comment">##or by="origin"</span></span><br><span class="line">ans</span><br><span class="line"><span class="comment">#    origin     N</span></span><br><span class="line"><span class="comment"># 1:    JFK 81483</span></span><br><span class="line"><span class="comment"># 2:    LGA 84433</span></span><br><span class="line"><span class="comment"># 3:    EWR 87400</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##只有一个变量，也可以不加.</span></span><br><span class="line">ans &lt;- flights[, .N, by = origin]</span><br></pre></td></tr></table></figure>
+
+<p>注意，分组后的顺序是按原来的顺序排列的：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">head(flights)</span><br><span class="line"><span class="comment"># year month day dep_delay arr_delay carrier origin dest</span></span><br><span class="line"><span class="comment"># 1: 2014     1   1        14        13      AA    JFK  LAX</span></span><br><span class="line"><span class="comment"># 2: 2014     1   1        -3        13      AA    JFK  LAX</span></span><br><span class="line"><span class="comment"># 3: 2014     1   1         2         9      AA    JFK  LAX</span></span><br><span class="line"><span class="comment"># 4: 2014     1   1        -8       -26      AA    LGA  PBI</span></span><br><span class="line"><span class="comment"># 5: 2014     1   1         2         1      AA    JFK  LAX</span></span><br><span class="line"><span class="comment"># 6: 2014     1   1         4         0      AA    EWR  LAX</span></span><br><span class="line"><span class="comment"># air_time distance hour</span></span><br><span class="line"><span class="comment"># 1:      359     2475    9</span></span><br><span class="line"><span class="comment"># 2:      363     2475   11</span></span><br><span class="line"><span class="comment"># 3:      351     2475   19</span></span><br><span class="line"><span class="comment"># 4:      157     1035    7</span></span><br><span class="line"><span class="comment"># 5:      350     2475   13</span></span><br><span class="line"><span class="comment"># 6:      339     2454   18</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##origin出现的先后顺序是JFK LGA EWR</span></span><br></pre></td></tr></table></figure>
+
+<p>如何得到carrier code 是AA的每一个起点的航班的数量？</p>
+<p>我们可以先通过i来选择子集，再对其进行上面的操作：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[carrier == <span class="string">"AA"</span>, .N, by = origin]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#    origin     N</span></span><br><span class="line"><span class="comment"># 1:    JFK 11923</span></span><br><span class="line"><span class="comment"># 2:    LGA 11730</span></span><br><span class="line"><span class="comment"># 3:    EWR  2649</span></span><br></pre></td></tr></table></figure>
+
+<p>如何得到carrier code是AA的每一个起点，终点对的航班的数量？这个时候可以对两个变量进行分组</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[carrier==<span class="string">"AA"</span>,.N,by=.(origin,dest)]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#    origin dest    N</span></span><br><span class="line"><span class="comment"># 1:    JFK  LAX 3387</span></span><br><span class="line"><span class="comment"># 2:    LGA  PBI  245</span></span><br><span class="line"><span class="comment"># 3:    EWR  LAX   62</span></span><br><span class="line"><span class="comment"># 4:    JFK  MIA 1876</span></span><br><span class="line"><span class="comment"># 5:    JFK  SEA  298</span></span><br><span class="line"><span class="comment"># 6:    EWR  MIA  848</span></span><br></pre></td></tr></table></figure>
+
+<p>如何得到每个月carrier code是AA的每一个起点，终点对的平均抵达和离开延误？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[carrier == <span class="string">"AA"</span>,</span><br><span class="line">        .(mean(arr_delay), mean(dep_delay)),</span><br><span class="line">        by = .(origin, dest, month)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#      origin dest month         V1         V2</span></span><br><span class="line"><span class="comment">#   1:    JFK  LAX     1   6.590361 14.2289157</span></span><br><span class="line"><span class="comment">#   2:    LGA  PBI     1  -7.758621  0.3103448</span></span><br><span class="line"><span class="comment">#   3:    EWR  LAX     1   1.366667  7.5000000</span></span><br><span class="line"><span class="comment">#   4:    JFK  MIA     1  15.720670 18.7430168</span></span><br><span class="line"><span class="comment">#   5:    JFK  SEA     1  14.357143 30.7500000</span></span><br><span class="line"><span class="comment">#  ---                                        </span></span><br><span class="line"><span class="comment"># 196:    LGA  MIA    10  -6.251799 -1.4208633</span></span><br><span class="line"><span class="comment"># 197:    JFK  MIA    10  -1.880184  6.6774194</span></span><br><span class="line"><span class="comment"># 198:    EWR  PHX    10  -3.032258 -4.2903226</span></span><br><span class="line"><span class="comment"># 199:    JFK  MCO    10 -10.048387 -1.6129032</span></span><br><span class="line"><span class="comment"># 200:    JFK  DCA    10  16.483871 15.5161290</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="通过by-keyby来排序"><a href="#通过by-keyby来排序" class="headerlink" title="通过by:keyby来排序"></a>通过<code>by:keyby</code>来排序</h3><p>通过<code>by</code>分组后的数据是按照原来数据中的次序排的，有时我们想要对分组后的数据进行排序，这时可以将<code>by</code>替换为<code>keyby</code>:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[carrier == <span class="string">"AA"</span>,</span><br><span class="line">        .(mean(arr_delay), mean(dep_delay)),</span><br><span class="line">        keyby = .(origin, dest, month)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#      origin dest month         V1         V2</span></span><br><span class="line"><span class="comment">#   1:    EWR  DFW     1   6.427673 10.0125786</span></span><br><span class="line"><span class="comment">#   2:    EWR  DFW     2  10.536765 11.3455882</span></span><br><span class="line"><span class="comment">#   3:    EWR  DFW     3  12.865031  8.0797546</span></span><br><span class="line"><span class="comment">#   4:    EWR  DFW     4  17.792683 12.9207317</span></span><br><span class="line"><span class="comment">#   5:    EWR  DFW     5  18.487805 18.6829268</span></span><br><span class="line"><span class="comment">#  ---                                        </span></span><br><span class="line"><span class="comment"># 196:    LGA  PBI     1  -7.758621  0.3103448</span></span><br><span class="line"><span class="comment"># 197:    LGA  PBI     2  -7.865385  2.4038462</span></span><br><span class="line"><span class="comment"># 198:    LGA  PBI     3  -5.754098  3.0327869</span></span><br><span class="line"><span class="comment"># 199:    LGA  PBI     4 -13.966667 -4.7333333</span></span><br><span class="line"><span class="comment"># 200:    LGA  PBI     5 -10.357143 -6.8571429</span></span><br></pre></td></tr></table></figure>
+
+<p><code>keyby</code>比<code>by</code>要快，因为<code>by</code>分组的时候还是要将数据排序后进行分组，然后再还原成原来的数据；<code>keyby</code>除了排序外还有其他的用法：<em>Keys and fast binary search based subset</em> </p>
+<h3 id="Chaining"><a href="#Chaining" class="headerlink" title="Chaining"></a>Chaining</h3><p>现在考虑前面讲过的一个例子：如何得到carrier code是AA的每一个起点，终点对的航班的数量？</p>
+<figure class="highlight plain"><figcaption><span><- flights[carrier </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">如何对起点进行升序排列，对终点进行降序排列？</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;R</span><br><span class="line">ans &lt;- flights[carrier &#x3D;&#x3D; &quot;AA&quot;, .N, by &#x3D; .(origin, dest)]</span><br><span class="line">ans &lt;- ans[order(origin,-dest)]</span><br><span class="line">ans</span><br></pre></td></tr></table></figure>
+
+<p>这样处理就要存储一个中间值，在<code>data.table</code>中可以使用链表达式：<code>DT[ ... ][ ... ][ ... ]</code>，类似于<code>dplyr</code>中的<code>%&gt;%</code>：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[carrier == <span class="string">"AA"</span>, .N, by = .(origin, dest)][order(origin,-dest)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="在by中使用表达式"><a href="#在by中使用表达式" class="headerlink" title="在by中使用表达式"></a>在<code>by</code>中使用表达式</h3><p>比如，我们可以通过在<code>by</code>中用表达式来判断是否延误，是离开的时候还是到达的时候延误：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[, .N, .(dep_delay&gt;<span class="number">0</span>, arr_delay&gt;<span class="number">0</span>)]</span><br><span class="line">ans</span><br><span class="line"><span class="comment">#    dep_delay arr_delay      N</span></span><br><span class="line"><span class="comment"># 1:      TRUE      TRUE  72836</span></span><br><span class="line"><span class="comment"># 2:     FALSE      TRUE  34583</span></span><br><span class="line"><span class="comment"># 3:     FALSE     FALSE 119304</span></span><br><span class="line"><span class="comment"># 4:      TRUE     FALSE  26593</span></span><br><span class="line"></span><br><span class="line"><span class="comment">##也可以指定分类的名称</span></span><br><span class="line">ans &lt;- flights[, .N,.(dep_delayed = dep_delay&gt;<span class="number">0</span>, arr_delayed = arr_delay&gt;<span class="number">0</span>)]</span><br><span class="line"><span class="comment">#      dep_delayed arr_delayed      N</span></span><br><span class="line"><span class="comment"># 1:        TRUE        TRUE  72836</span></span><br><span class="line"><span class="comment"># 2:       FALSE        TRUE  34583</span></span><br><span class="line"><span class="comment"># 3:       FALSE       FALSE 119304</span></span><br><span class="line"><span class="comment"># 4:        TRUE       FALSE  26593</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="在j里面用SD对多列进行操作"><a href="#在j里面用SD对多列进行操作" class="headerlink" title="在j里面用SD对多列进行操作"></a>在<code>j</code>里面用<code>SD</code>对多列进行操作</h3><p><code>SD</code>是自身就是一个数据框，里面有除了<code>by</code>中分组的变量之外的所有列</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">DT = data.table(</span><br><span class="line">  ID = c(<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"b"</span>,<span class="string">"a"</span>,<span class="string">"a"</span>,<span class="string">"c"</span>),</span><br><span class="line">  x = <span class="number">1</span>:<span class="number">6</span>,</span><br><span class="line">  y = <span class="number">7</span>:<span class="number">12</span>,</span><br><span class="line">  z = <span class="number">13</span>:<span class="number">18</span></span><br><span class="line">)</span><br><span class="line">DT</span><br><span class="line"><span class="comment">#    ID a  b  c</span></span><br><span class="line"><span class="comment"># 1:  b 1  7 13</span></span><br><span class="line"><span class="comment"># 2:  b 2  8 14</span></span><br><span class="line"><span class="comment"># 3:  b 3  9 15</span></span><br><span class="line"><span class="comment"># 4:  a 4 10 16</span></span><br><span class="line"><span class="comment"># 5:  a 5 11 17</span></span><br><span class="line"><span class="comment"># 6:  c 6 12 18</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">DT[,print(.SD),by=ID]</span><br><span class="line"><span class="comment">#    a b  c</span></span><br><span class="line"><span class="comment"># 1: 1 7 13</span></span><br><span class="line"><span class="comment"># 2: 2 8 14</span></span><br><span class="line"><span class="comment"># 3: 3 9 15</span></span><br><span class="line"><span class="comment">#    a  b  c</span></span><br><span class="line"><span class="comment"># 1: 4 10 16</span></span><br><span class="line"><span class="comment"># 2: 5 11 17</span></span><br><span class="line"><span class="comment">#    a  b  c</span></span><br><span class="line"><span class="comment"># 1: 6 12 18</span></span><br><span class="line"><span class="comment"># Empty data.table (0 rows and 1 cols): ID</span></span><br></pre></td></tr></table></figure>
+
+<p>怎么计算按照分组的每列的均值？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DT[, lapply(.SD, mean), by = ID]</span><br><span class="line"><span class="comment">#    ID   a    b    c</span></span><br><span class="line"><span class="comment"># 1:  b 2.0  8.0 14.0</span></span><br><span class="line"><span class="comment"># 2:  a 4.5 10.5 16.5</span></span><br><span class="line"><span class="comment"># 3:  c 6.0 12.0 18.0</span></span><br></pre></td></tr></table></figure>
+
+<p>计算每组中每个变量的均值，返回一个list，所以3个组返回3个List构成最后的列，由于<code>lapply</code>返回list所以不需要加<code>.</code>或者<code>list()</code></p>
+<p>如果我们只想对某些列计算，该怎么操作？比如计算<code>flights</code>数据中<code>arr_delay</code> 和<code>dep_delay</code>两列的均值；我们可以将<code>SDcols</code>和<code>SD</code>搭配使用来完成，<code>SDcols</code>指定在<code>SD</code>中包含的列：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">flights[carrier == <span class="string">"AA"</span>,                       <span class="comment">## Only on trips with carrier "AA"</span></span><br><span class="line">        lapply(.SD, mean),                     <span class="comment">## compute the mean</span></span><br><span class="line">        by = .(origin, dest, month),           <span class="comment">## for every 'origin,dest,month'</span></span><br><span class="line">        .SDcols = c(<span class="string">"arr_delay"</span>, <span class="string">"dep_delay"</span>)] <span class="comment">## for just those specified in .SDcols</span></span><br><span class="line"><span class="comment">#      origin dest month  arr_delay  dep_delay</span></span><br><span class="line"><span class="comment">#   1:    JFK  LAX     1   6.590361 14.2289157</span></span><br><span class="line"><span class="comment">#   2:    LGA  PBI     1  -7.758621  0.3103448</span></span><br><span class="line"><span class="comment">#   3:    EWR  LAX     1   1.366667  7.5000000</span></span><br><span class="line"><span class="comment">#   4:    JFK  MIA     1  15.720670 18.7430168</span></span><br><span class="line"><span class="comment">#   5:    JFK  SEA     1  14.357143 30.7500000</span></span><br><span class="line"><span class="comment">#  ---                                        </span></span><br><span class="line"><span class="comment"># 196:    LGA  MIA    10  -6.251799 -1.4208633</span></span><br><span class="line"><span class="comment"># 197:    JFK  MIA    10  -1.880184  6.6774194</span></span><br><span class="line"><span class="comment"># 198:    EWR  PHX    10  -3.032258 -4.2903226</span></span><br><span class="line"><span class="comment"># 199:    JFK  MCO    10 -10.048387 -1.6129032</span></span><br><span class="line"><span class="comment"># 200:    JFK  DCA    10  16.483871 15.5161290</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用SD取子集"><a href="#使用SD取子集" class="headerlink" title="使用SD取子集"></a>使用<code>SD</code>取子集</h3><p>如何得到每个月的数据的前两行？</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ans &lt;- flights[, head(.SD, <span class="number">2</span>), by = month]</span><br><span class="line">head(ans)</span><br><span class="line"><span class="comment">#    month year day dep_delay arr_delay carrier origin dest air_time distance hour</span></span><br><span class="line"><span class="comment"># 1:     1 2014   1        14        13      AA    JFK  LAX      359     2475    9</span></span><br><span class="line"><span class="comment"># 2:     1 2014   1        -3        13      AA    JFK  LAX      363     2475   11</span></span><br><span class="line"><span class="comment"># 3:     2 2014   1        -1         1      AA    JFK  LAX      358     2475    8</span></span><br><span class="line"><span class="comment"># 4:     2 2014   1        -5         3      AA    JFK  LAX      358     2475   11</span></span><br><span class="line"><span class="comment"># 5:     3 2014   1       -11        36      AA    JFK  LAX      375     2475    8</span></span><br><span class="line"><span class="comment"># 6:     3 2014   1        -3        14      AA    JFK  LAX      368     2475   11</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="合并"><a href="#合并" class="headerlink" title="合并"></a>合并</h2><p>假设我们想要合并1月份和2月份的carrier：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">month1 &lt;- flights[month==<span class="number">1</span>,.N,by=<span class="string">"carrier"</span>]</span><br><span class="line">month2 &lt;- flights[month==<span class="number">2</span>,.N,by=<span class="string">"carrier"</span>]</span><br><span class="line">month2 &lt;- month2[-<span class="number">13</span>]</span><br><span class="line">month1[month2,on=<span class="string">"carrier"</span>]<span class="comment">##根据2月份中的所有carrier，合并1月和2月的数据，1月中没有的会填上NA</span></span><br><span class="line"><span class="comment">#   carrier    N  i.N</span></span><br><span class="line"><span class="comment"># 1:      AA 2515 2267</span></span><br><span class="line"><span class="comment"># 2:      AS   49   44</span></span><br><span class="line"><span class="comment"># 3:      B6 3919 3889</span></span><br><span class="line"><span class="comment"># 4:      DL 3539 3287</span></span><br><span class="line"><span class="comment"># 5:      EV 3568 3105</span></span><br><span class="line"><span class="comment"># 6:      HA   29   22</span></span><br><span class="line"><span class="comment"># 7:      MQ 1788 1611</span></span><br><span class="line"><span class="comment"># 8:      FL  186  159</span></span><br><span class="line"><span class="comment"># 9:      VX  431  372</span></span><br><span class="line"><span class="comment"># 10:      WN  951  825</span></span><br><span class="line"><span class="comment"># 11:      UA 4229 3818</span></span><br><span class="line"><span class="comment"># 12:      US 1560 1384</span></span><br><span class="line"></span><br><span class="line">month2[month1,on=<span class="string">"carrier"</span>]</span><br><span class="line"><span class="comment"># carrier    N  i.N</span></span><br><span class="line"><span class="comment"># 1:      AA 2267 2515</span></span><br><span class="line"><span class="comment"># 2:      AS   44   49</span></span><br><span class="line"><span class="comment"># 3:      B6 3889 3919</span></span><br><span class="line"><span class="comment"># 4:      DL 3287 3539</span></span><br><span class="line"><span class="comment"># 5:      EV 3105 3568</span></span><br><span class="line"><span class="comment"># 6:      F9   NA   32</span></span><br><span class="line"><span class="comment"># 7:      FL  159  186</span></span><br><span class="line"><span class="comment"># 8:      HA   22   29</span></span><br><span class="line"><span class="comment"># 9:      MQ 1611 1788</span></span><br><span class="line"><span class="comment"># 10:      VX  372  431</span></span><br><span class="line"><span class="comment"># 11:      WN  825  951</span></span><br><span class="line"><span class="comment"># 12:      UA 3818 4229</span></span><br><span class="line"><span class="comment"># 13:      US 1384 1560</span></span><br><span class="line"></span><br><span class="line">month2[month1,on=<span class="string">"carrier"</span>,nomatch=<span class="number">0</span>]<span class="comment">##取交叉部分</span></span><br><span class="line"><span class="comment">#    carrier    N  i.N</span></span><br><span class="line"><span class="comment"># 1:      AA 2267 2515</span></span><br><span class="line"><span class="comment"># 2:      AS   44   49</span></span><br><span class="line"><span class="comment"># 3:      B6 3889 3919</span></span><br><span class="line"><span class="comment"># 4:      DL 3287 3539</span></span><br><span class="line"><span class="comment"># 5:      EV 3105 3568</span></span><br><span class="line"><span class="comment"># 6:      FL  159  186</span></span><br><span class="line"><span class="comment"># 7:      HA   22   29</span></span><br><span class="line"><span class="comment"># 8:      MQ 1611 1788</span></span><br><span class="line"><span class="comment"># 9:      VX  372  431</span></span><br><span class="line"><span class="comment"># 10:      WN  825  951</span></span><br><span class="line"><span class="comment"># 11:      UA 3818 4229</span></span><br><span class="line"><span class="comment"># 12:      US 1384 1560</span></span><br><span class="line"></span><br><span class="line">month1[!month2,on=<span class="string">"carrier"</span>]<span class="comment">##取month2中没有的部分</span></span><br><span class="line"><span class="comment">#    carrier  N</span></span><br><span class="line"><span class="comment"># 1:      F9 32</span></span><br><span class="line"></span><br><span class="line">month1 &lt;- month1[,.(a_carrier=carrier,N)]</span><br><span class="line">month1[month2,on=.(a_carrier==carrier)]<span class="comment">##当要合并的列名不同的时候</span></span><br><span class="line"><span class="comment">#   a_carrier    N  i.N</span></span><br><span class="line"><span class="comment"># 1:        AA 2515 2267</span></span><br><span class="line"><span class="comment"># 2:        AS   49   44</span></span><br><span class="line"><span class="comment"># 3:        B6 3919 3889</span></span><br><span class="line"><span class="comment"># 4:        DL 3539 3287</span></span><br><span class="line"><span class="comment"># 5:        EV 3568 3105</span></span><br><span class="line"><span class="comment"># 6:        HA   29   22</span></span><br><span class="line"><span class="comment"># 7:        MQ 1788 1611</span></span><br><span class="line"><span class="comment"># 8:        FL  186  159</span></span><br><span class="line"><span class="comment"># 9:        VX  431  372</span></span><br><span class="line"><span class="comment"># 10:        WN  951  825</span></span><br><span class="line"><span class="comment"># 11:        UA 4229 3818</span></span><br><span class="line"><span class="comment"># 12:        US 1560 1384</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/12/linux_tips/" rel="prev" title="linux_tips">
+      <i class="fa fa-chevron-left"></i> linux_tips
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-data-table"><span class="nav-number">1.</span> <span class="nav-text">Introduction to data.table</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#导入数据"><span class="nav-number">1.1.</span> <span class="nav-text">导入数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.2.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basics"><span class="nav-number">1.2.1.</span> <span class="nav-text">Basics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在i中对行进行选择："><span class="nav-number">1.2.2.</span> <span class="nav-text">在i中对行进行选择：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在j中选择列"><span class="nav-number">1.2.3.</span> <span class="nav-text">在j中选择列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在j中进行计算"><span class="nav-number">1.2.4.</span> <span class="nav-text">在j中进行计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在i中选择，再在j中计算"><span class="nav-number">1.2.5.</span> <span class="nav-text">在i中选择，再在j中计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在j中根据列名来选择列，就像在data-frame一样"><span class="nav-number">1.2.6.</span> <span class="nav-text">在j中根据列名来选择列，就像在data.frame一样</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aggregations"><span class="nav-number">1.3.</span> <span class="nav-text">Aggregations</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过by来分组"><span class="nav-number">1.3.1.</span> <span class="nav-text">通过by来分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过by-keyby来排序"><span class="nav-number">1.3.2.</span> <span class="nav-text">通过by:keyby来排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chaining"><span class="nav-number">1.3.3.</span> <span class="nav-text">Chaining</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在by中使用表达式"><span class="nav-number">1.3.4.</span> <span class="nav-text">在by中使用表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在j里面用SD对多列进行操作"><span class="nav-number">1.3.5.</span> <span class="nav-text">在j里面用SD对多列进行操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用SD取子集"><span class="nav-number">1.3.6.</span> <span class="nav-text">使用SD取子集</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并"><span class="nav-number">1.4.</span> <span class="nav-text">合并</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wu tao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wu tao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">70k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
