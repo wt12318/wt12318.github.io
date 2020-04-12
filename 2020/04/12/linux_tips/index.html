@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="常用Linux命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux_tips">
+<meta property="og:url" content="http://yoursite.com/2020/04/12/linux_tips/index.html">
+<meta property="og:site_name" content="Wutao&#39;s Blog">
+<meta property="og:description" content="常用Linux命令">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200403174510.png">
+<meta property="article:published_time" content="2020-04-12T14:14:02.015Z">
+<meta property="article:modified_time" content="2020-04-12T14:15:00.804Z">
+<meta property="article:author" content="Wu tao">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200403174510.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/04/12/linux_tips/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>linux_tips | Wutao's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wutao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/12/linux_tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wu tao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wutao's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          linux_tips
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-04-12 22:14:02 / 修改时间：22:15:00" itemprop="dateCreated datePublished" datetime="2020-04-12T22:14:02+08:00">2020-04-12</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="xargs命令"><a href="#xargs命令" class="headerlink" title="xargs命令"></a><code>xargs</code>命令</h2><p>使用管道可以方便地将一个命令的输出作为下一个命令的输入，但是有些命令并不支持管道输入，如<code>ls</code>,<code>mkdir</code>等，这时就可以用<code>xargs</code>命令</p>
+<p><code>xargs</code>可以接受文件或者命令的输出，将其传递给其他命令，默认是<code>echo</code></p>
+<p><code>xargs</code>可以将多行的输出转化成一行，这就是其可以将输出传递给其他命令的基础（当然也可以用不同的参数得到不同格式的输出）</p>
+<p>看几个例子：</p>
+<h3 id="xargs和wc"><a href="#xargs和wc" class="headerlink" title="xargs和wc"></a><code>xargs</code>和<code>wc</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ls *.gtf | xargs wc -l</span><br><span class="line"> 42252 1-6.gtf</span><br><span class="line">   42252 1.gtf</span><br><span class="line">       8 test.gtf</span><br><span class="line">   84512 total</span><br><span class="line">   </span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#ls 将后缀为gtf的文件名给xargs ，xargs将这些文件名传给wc作为其参数</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-p选项，在执行的时候会询问"><a href="#使用-p选项，在执行的时候会询问" class="headerlink" title="使用-p选项，在执行的时候会询问"></a>使用<code>-p</code>选项，在执行的时候会询问</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo 'one two three' | xargs -p touch</span><br><span class="line"><span class="meta">#</span><span class="bash"> touch one two three ?...y</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-I选项，执行多个命令"><a href="#使用-I选项，执行多个命令" class="headerlink" title="使用-I选项，执行多个命令"></a>使用<code>-I</code>选项，执行多个命令</h3><p><code>-I</code>后面跟一个字符，在后面的命令中出现相同的字符会被替换掉：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat directories.txt | xargs -I [  echo [ ## [也可以是其他字符</span><br></pre></td></tr></table></figure>
+
+<p>如果我们要同时执行多个命令，可以使用<code>sh -c</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat directories.txt | xargs -I [ sh -c 'echo [;mkdir ['</span><br></pre></td></tr></table></figure>
+
+<p>用这个我们可以改变<code>xargs</code>传递的参数的位置（默认是最后一个参数）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls *.jpg | xargs -n1 -I &#123;&#125; cp &#123;&#125; /data/images ##将当前目录下的所有jpg文件复制到/data/images</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-n选项，复制文件到多个位置"><a href="#使用-n选项，复制文件到多个位置" class="headerlink" title="使用-n选项，复制文件到多个位置"></a>使用<code>-n</code>选项，复制文件到多个位置</h3><p><code>-n</code>后面接数字，表示一次传递的参数的数目</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> echo ./dir_one/ ./dir_two/ | xargs -n 1 cp -v *.gtf ##-v 报告复制过程</span><br><span class="line"> '1-6.gtf' -&gt; './dir_one/1-6.gtf'</span><br><span class="line">'1.gtf' -&gt; './dir_one/1.gtf'</span><br><span class="line">'test.gtf' -&gt; './dir_one/test.gtf'</span><br><span class="line">'1-6.gtf' -&gt; './dir_two/1-6.gtf'</span><br><span class="line">'1.gtf' -&gt; './dir_two/1.gtf'</span><br><span class="line">'test.gtf' -&gt; './dir_two/test.gtf'</span><br></pre></td></tr></table></figure>
+
+<h3 id="结合find使用"><a href="#结合find使用" class="headerlink" title="结合find使用"></a>结合<code>find</code>使用</h3><p>用 <code>rm</code> 删除太多的文件时候，可能得到一个错误信息：<code>/bin/rm Argument list too long</code>,用 <code>xargs</code>去避免这个问题:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f -name "*.log" -print0 | xargs -0 rm -f</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹"><a href="#如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹" class="headerlink" title="如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹"></a>如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹</h2><p><img src="https://raw.githubusercontent.com/wt12318/picgo/master/img/20200403174510.png" alt=""></p>
+<p>如何将<code>.pbs</code>文件一次全部移动到相应的文件夹，<code>cancer</code>文件中是这些<code>pbs</code>的名字,是下面的命令产生的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in ./*.pbs ;do basename $i;done &gt; cancer</span><br></pre></td></tr></table></figure>
+
+<p>由于<code>xargs</code>默认将结果作为下个命令的最后的参数，所以：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat cancer |while read i;do basename $i .pbs | xargs -n 1 mv $i;done</span><br></pre></td></tr></table></figure>
+
+<h2 id="一次得到所有癌症类型的样本名"><a href="#一次得到所有癌症类型的样本名" class="headerlink" title="一次得到所有癌症类型的样本名"></a>一次得到所有癌症类型的样本名</h2><p>我的所有癌症的<code>maf</code>文件都存在一个相应的文件夹中，怎么将这些文件夹中的样本名提取出来，就是去掉后缀名，对一个癌症可以这样做：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in ./luad/*;do basename $i .maf;done &gt; luadsample.txt</span><br></pre></td></tr></table></figure>
+
+<p>批量做：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">for i in /public/home/wangshx/wt/tcga_pancancer_dcc_mafs_082115/mafs/maf/*</span><br><span class="line">do </span><br><span class="line">   for j in $i/*</span><br><span class="line">   do </span><br><span class="line">     basename $j .maf &gt;&gt; $(echo $i.txt)</span><br><span class="line">   done</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历文件每一行进行操作"><a href="#遍历文件每一行进行操作" class="headerlink" title="遍历文件每一行进行操作"></a>遍历文件每一行进行操作</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat success_submitted_list.txt |while read i ;do mv $i ./02 ;done</span><br></pre></td></tr></table></figure>
+
+<h2 id="提取文件名并去掉后缀"><a href="#提取文件名并去掉后缀" class="headerlink" title="提取文件名并去掉后缀"></a>提取文件名并去掉后缀</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for i in ./luad/*;do basename $i _out.txt;done &gt; sample</span><br></pre></td></tr></table></figure>
+
+<h2 id="传文件"><a href="#传文件" class="headerlink" title="传文件"></a>传文件</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp wt@10.19.24.165:/home/wt/nb_step2/pancancer_neo_fixed.maf  wangshx@10.15.22.110:/public/home/wangshx/wt/calnb</span><br></pre></td></tr></table></figure>
+
+<h2 id="（批量）对文件修改"><a href="#（批量）对文件修改" class="headerlink" title="（批量）对文件修改"></a>（批量）对文件修改</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">! /bin/bash</span></span><br><span class="line">dir=$(ls -l ./ |awk '!/^d/ &#123;print $NF&#125;' |grep -i "maf")</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#将注释行删除</span></span></span><br><span class="line">for i in $dir</span><br><span class="line">do</span><br><span class="line">grep -v '^#' $i &gt; ./promafs/$i ##sed '/^#/d' &lt;file&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash">grep -v <span class="string">'^$'</span> xxx，删除空行，或者 sed <span class="string">'/^$/d'</span> &lt;file&gt;</span></span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#删除文件的第一行</span></span></span><br><span class="line">sed -i '1d' filename</span><br><span class="line">sed -i 'nd' filename##第n行</span><br><span class="line">sed -i '1,3d' filename##第1和第3行</span><br></pre></td></tr></table></figure>
+
+<h2 id="grep匹配"><a href="#grep匹配" class="headerlink" title="grep匹配"></a><code>grep</code>匹配</h2><p><code>grep</code>的基本模式是：<code>grep &#39;pattern&#39; file_to_search</code> 并且会打印出匹配上<code>pattern</code>的行</p>
+<p><code>gerp</code>常用的参数有：</p>
+<ul>
+<li><p><code>grep -w</code> 匹配整个字符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo 'my dog is brown' &gt; sample.txt</span><br><span class="line"></span><br><span class="line">grep -w 'dog' sample.txt ##my dog is brown</span><br><span class="line">grep -w 'do' sample.txt ##not output</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>grep -i</code> 匹配时大小写不敏感</p>
+</li>
+<li><p><code>grep -v</code>返回不匹配的行</p>
+</li>
+<li><p><code>grep -o</code> 只返回匹配的字符，而不是一整行</p>
+</li>
+<li><p><code>grep -c</code> 对匹配的行进行计数，相当于：<code>grep &#39;pattern&#39; file | wc -l</code></p>
+</li>
+<li><p>一些参数返回匹配行的前/后行：</p>
+<ul>
+<li><code>grep -A [n]</code> 返回匹配的行和之后的n行</li>
+<li><code>grep -B [n]</code> 返回匹配的行和之前的n行</li>
+<li><code>grep -C [n]</code> 返回匹配的行和之前的n行，之后的n行</li>
+</ul>
+</li>
+<li><p><code>grep -f</code> 后面可以接一个文件，里面有多个要匹配的模式，一个模式一行，也就是：<code>grep -f patterns.txt file.txt</code></p>
+</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v "#" 1.gtf | grep -v "^$" | wc -l ##除去注释行和空行之后的行数，因为`$`是行尾的标记</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">grep -v '^#' 1.gtf | awk '&#123;print $3, $5-$4+1&#125;' | head ##计算每种特征的长度</span><br><span class="line">gene 1152</span><br><span class="line">transcript 1152</span><br><span class="line">exon 1152</span><br><span class="line">CDS 1149</span><br><span class="line">start_codon 3</span><br><span class="line">stop_codon 3</span><br><span class="line">gene 75</span><br><span class="line">transcript 75</span><br><span class="line">exon 75</span><br><span class="line">CDS 72</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">grep -v '^#' 1.gtf | awk '&#123;print $3&#125;' | sort | uniq -c ##这个就是看gtf文件中的feature类型的数量</span><br><span class="line">   7050 CDS</span><br><span class="line">   7553 exon</span><br><span class="line">   7126 gene</span><br><span class="line">   6700 start_codon</span><br><span class="line">   6692 stop_codon</span><br><span class="line">   7126 transcript</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="文件上下翻转和左右翻转"><a href="#文件上下翻转和左右翻转" class="headerlink" title="文件上下翻转和左右翻转"></a>文件上下翻转和左右翻转</h2><ul>
+<li><p><code>tac</code> 文件上下翻转，也就是第一行变为最后一行，第二行 变成倒数第二行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#首先创建一个文本</span></span></span><br><span class="line">touch taccommand</span><br><span class="line">vi taccommand</span><br><span class="line"><span class="meta">#</span><span class="bash">first</span></span><br><span class="line"><span class="meta">#</span><span class="bash">second</span></span><br><span class="line"><span class="meta">#</span><span class="bash">third</span></span><br><span class="line">cat taccommand | tac</span><br><span class="line"><span class="meta">#</span><span class="bash">third</span></span><br><span class="line"><span class="meta">#</span><span class="bash">second</span></span><br><span class="line"><span class="meta">#</span><span class="bash">first</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#我们也可以直接输入文本，使用&lt;&lt;命令</span></span></span><br><span class="line">cat &lt;&lt;END | tac##&lt;&lt;后接的就是终止符,这种方式并不创建一个文本</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>rev</code> 将每列反转，也就是将第一个字符变成最后一个</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;a | rev</span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; abcde </span></span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; xyz </span></span><br><span class="line"><span class="meta">#</span><span class="bash">&gt; a</span></span><br><span class="line"><span class="meta">#</span><span class="bash">edcba </span></span><br><span class="line"><span class="meta">#</span><span class="bash">zyx</span></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="使用rename批量重命名"><a href="#使用rename批量重命名" class="headerlink" title="使用rename批量重命名"></a>使用<code>rename</code>批量重命名</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch test1.fa test2.fa </span><br><span class="line">rename 'test' 'new' test*.fa</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="使用ln（link）给文件建立快捷方式，也就是创建软链接"><a href="#使用ln（link）给文件建立快捷方式，也就是创建软链接" class="headerlink" title="使用ln（link）给文件建立快捷方式，也就是创建软链接"></a>使用ln（link）给文件建立快捷方式，也就是创建软链接</h2><p><code>ln</code>参数：<code>-s</code>软链接 <code>-f</code>强制创建</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#创建链接的时候需要写全路径</span></span></span><br><span class="line">ln -f /public/home/wangshx/wt/practice/pro/test3 ../pro1</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#可以用pwd代替全路径</span></span></span><br><span class="line">ln -f `pwd`/test3 ../pro1##``里的命令是会运行的</span><br></pre></td></tr></table></figure>
+
+<h2 id="一些有用的快捷操作"><a href="#一些有用的快捷操作" class="headerlink" title="一些有用的快捷操作"></a>一些有用的快捷操作</h2><ul>
+<li>! 加之前输入过的命令的前几个字母，快速获取前面的命令</li>
+<li>回到命令的行首可以用<code>ctrl a</code>或者<code>home</code>键，回到行尾可以用<code>ctrl e</code>或者<code>end</code>键；比如我写好一个命令但是却不想运行了可以回到行首加上#再回车</li>
+<li><code>!!</code>表示上一条命令</li>
+<li>替换上一个命令中的字符，再运行一遍命令，用于需要对多个文件执行同样的命令，又不想写循环的情况，使用<code>:gs(global substitute)</code> 如：<code>!!:gs/test1/test2</code> 将上一条命令中的test1替换成test2再运行一次</li>
+</ul>
+<h2 id="标准输入，标准输出与标准错误"><a href="#标准输入，标准输出与标准错误" class="headerlink" title="标准输入，标准输出与标准错误"></a>标准输入，标准输出与标准错误</h2><p>主要是3个符号：<code>&lt;</code> <code>&gt;</code> <code>-</code></p>
+<p>标准输出与标准错误都是输出到屏幕上的</p>
+<p>可以用<code>&gt;</code> 将标准输出重定向到某个文件</p>
+<figure class="highlight plain"><figcaption><span>>&1``` 将标准错误重定向到标准输出，如果已经将标准输出定向到某个文件，那么这个命令可以将标准错误与标准输出定向到一个文件（**Linux 终端用 2 表示标准错误，1 表示标准输出**）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&lt;&#96;&#96;表示标准输入 后面接可以产生输出的命令 可以将输出转为输入；也可以用&#96;&#96;&#96;-&#96;&#96;&#96;表示标准输入</span><br><span class="line"></span><br><span class="line">下面看一个例子</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;shell</span><br><span class="line">##我们先写一个脚本</span><br><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">echo &quot;i am std output&quot;</span><br><span class="line">unexisted_command</span><br><span class="line"></span><br><span class="line">bash stdout_error.sh</span><br><span class="line">#i am std output,这个就是标准输出</span><br><span class="line">#stdout_error.sh: line 4: unexisted_command: command not found，这个就是标准错误</span><br><span class="line"></span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout##将标准输出重定向到文件，但是标准错误还会在屏幕上显示</span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout 2&gt; stdout_error.stderr#将输出和错误都重定向到文件，注意2和&gt;之间没有空格</span><br><span class="line">bash stdout_error.sh &gt; stdout_error.stdout 2&gt;&amp;1 ##将输出和错误重定向到一个文件</span><br><span class="line"></span><br><span class="line">cat &lt;&lt;END | diff - &lt;(echo &quot;1 2 3&quot; | tr &#39; &#39; &#39;\n&#39;) ##diff有两个输入，一个是上一个命令的输出，一个是&lt;后的输出,tr是用来替换字符的</span><br></pre></td></tr></table></figure>
+
+<h2 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h2><h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><p>解压用<code>unzip</code> ,压缩用<code>zip</code></p>
+<h3 id="gz"><a href="#gz" class="headerlink" title="gz"></a>gz</h3><p>解压用<code>gunzip</code>，压缩用<code>gzip</code></p>
+<h3 id="tar-gz"><a href="#tar-gz" class="headerlink" title="tar.gz"></a>tar.gz</h3><p>一些参数：</p>
+<ul>
+<li><code>-c</code>压缩</li>
+<li><code>-x</code>解压</li>
+<li><code>-t</code>查看压缩包的文件名</li>
+<li><code>-z</code>指定<code>.gz</code></li>
+<li><code>-f</code>指定压缩和解压缩的文件名</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tar -zcv -f cp_folder.tar.gz cp_folder       #打包压缩文件夹（gzip格式）</span><br><span class="line"></span><br><span class="line">tar -ztv -f cp_folder.tar.gz                 #查看压缩文件夹中的文件名（gzip格式）</span><br><span class="line"></span><br><span class="line">tar -zxv -f cp_folder.tar.gz                 #打开包并解压缩（gzip格式）</span><br></pre></td></tr></table></figure>
+
+<h3 id="bz2"><a href="#bz2" class="headerlink" title="bz2"></a><code>bz2</code></h3><p>压缩：<code>bzip2</code>;解压：<code>bunzip2</code></p>
+<p>也可以用<code>tar</code> 使用<code>-j</code>参数调用bzip，如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xjf a.tar.bz2</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><h3 id="文件生成"><a href="#文件生成" class="headerlink" title="文件生成"></a>文件生成</h3><p><code>seq()</code>生成序列</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">seq 1 10 ##默认分割符为换行符\n</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">seq -s " " 1 2 10 #也可以指定分隔符和步长</span><br><span class="line">1 3 5 7 9</span><br><span class="line">cat &lt;(seq 0 3 17) &lt;(seq 3 6 18) &gt; text##用标准输入和标准输出</span><br><span class="line">0</span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">9</span><br><span class="line">12</span><br><span class="line">15</span><br><span class="line">3</span><br><span class="line">9</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件排序"><a href="#文件排序" class="headerlink" title="文件排序"></a>文件排序</h3><p>使用<code>sort</code>进行排序，常用参数有：</p>
+<ul>
+<li><code>-n</code> 数值排序</li>
+<li><code>-r</code>逆序</li>
+<li><code>-c</code> 检测文件是否已经排序</li>
+<li><code>-k</code>指定使用哪几列排序</li>
+<li><code>-m</code>合并排序好的文件</li>
+<li><code>-u</code>删除重复行</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">sort test ##直接排序</span><br><span class="line">1</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">2</span><br><span class="line">24</span><br><span class="line">3</span><br><span class="line">35</span><br><span class="line">4</span><br><span class="line"></span><br><span class="line"> sort -n test ## 按照数值排序</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">24</span><br><span class="line">35</span><br><span class="line"></span><br><span class="line">sort test &gt; on_test</span><br><span class="line">sort -n test &gt; n_test</span><br><span class="line"></span><br><span class="line">sort -cn on_test ##注意用cn就表示检查是否按照数值排序的</span><br><span class="line"><span class="meta">#</span><span class="bash">sort: on_test:9: disorder: 2</span></span><br><span class="line">sort -cn n_test ##没有输出，表示排序了</span><br><span class="line"></span><br><span class="line">sort -nu test</span><br><span class="line">sort -n test | uniq##两种相同，都是将重复元素去掉</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">24</span><br><span class="line">35</span><br><span class="line"></span><br><span class="line">sort -n test | uniq -d##获取重复的行</span><br><span class="line">14</span><br><span class="line"></span><br><span class="line">sort -n test | uniq -c ##获取重复的行重复的次数</span><br><span class="line">      1</span><br><span class="line">      1 1</span><br><span class="line">      1 2</span><br><span class="line">      1 3</span><br><span class="line">      1 4</span><br><span class="line">      1 12</span><br><span class="line">      1 13</span><br><span class="line">      2 14</span><br><span class="line">      1 15</span><br><span class="line">      1 16</span><br><span class="line">      1 24</span><br><span class="line">      1 35</span><br></pre></td></tr></table></figure>
+
+<h3 id="一个例子，fasta序列提取"><a href="#一个例子，fasta序列提取" class="headerlink" title="一个例子，fasta序列提取"></a>一个例子，<code>fasta</code>序列提取</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">cat test.fasta</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">SOX2</span></span><br><span class="line">ACGAGGGACGCATCGGACGACTGCAGGACTGTC</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">POU5F1</span></span><br><span class="line">ACGAGGGACGCATCGGACGACTGCAGGACTGTC</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">NANOG</span></span><br><span class="line">CGGAAGGTAGTCGTCAGTGCAGCGAGTCCGT</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#提取含有SOX2的序列信息</span></span></span><br><span class="line">grep -A 1 "SOX2" test.fasta</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">SOX2</span></span><br><span class="line">ACGAGGGACGCATCGGACGACTGCAGGACTGTC</span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#-A 1表示输出匹配的行和其后一行after</span></span></span><br></pre></td></tr></table></figure>
+
+<p>也可以用<code>awk</code>来操作:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">awk 'BEGIN&#123;OFS=FS="\t"&#125;&#123;if($0 ~ /&gt;/) &#123;name=$0;sub("&gt;","",name);&#125;\</span><br><span class="line">else seq[name]=$0;&#125;END&#123;print "&gt;SOX2"; print seq["SOX2"]&#125;' test.fasta</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#$0 ~ /&gt;/ ~表示模式匹配的运算符，看这一行里面有没有&gt;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#sub 是进行替换的：sub(要替换的部分，要替换成的部分，要替换的字符串</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">#seq[name] 相当于一个字典，name就是key</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a><code>awk</code></h2><p>先来看几个例子：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v '^#' 1.gtf | awk '$3=="gene" &#123; len=$5-$4+1;size+=len;print"Size:",size&#125;'##计算所有基因的累计长度</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat 1.gtf | awk '$3=="CDS"&#123;len=$5-$4+1;size+=len;print"Size:",size&#125;' | tail -1##计算CDS的累计长度</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk 'BEGIN &#123;s=0;line=0&#125;;$3=="CDS" &amp;&amp; $1=="I"&#123;s+=($5-$4);line+=1&#125;;END &#123;print "mean=" s/line&#125;' 1.gtf ##计算1号染色体cds的平均长度</span><br></pre></td></tr></table></figure>
+
+<p><code>awk</code>的基本模式为：</p>
+<ul>
+<li><p><code>awk</code> 对文件是按行操作的，<code>{}</code> 里面的语句会对文件的每一行都进行判断或操作，循环执行</p>
+</li>
+<li><p><code>BEGIN</code> 表示在文件读取前先设置基本参数；与之相对应的是 <code>END</code>，在文件读取完成之后进行操作</p>
+</li>
+<li><p>OFS 后面接输出文件的列分隔符(output file column separator)</p>
+</li>
+<li><p>FS 后接输入文件的列分割符（默认是空白字符）</p>
+</li>
+<li><p>$0: 表示当前行所有内容；$1, $2, $3 表示当前行第 1,2,3 列</p>
+</li>
+<li><p>若命令太长，可在末尾加一个 , 换行书写</p>
+</li>
+</ul>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/12/git_learning/" rel="prev" title="git_learning">
+      <i class="fa fa-chevron-left"></i> git_learning
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#xargs命令"><span class="nav-number">1.</span> <span class="nav-text">xargs命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs和wc"><span class="nav-number">1.1.</span> <span class="nav-text">xargs和wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-p选项，在执行的时候会询问"><span class="nav-number">1.2.</span> <span class="nav-text">使用-p选项，在执行的时候会询问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-I选项，执行多个命令"><span class="nav-number">1.3.</span> <span class="nav-text">使用-I选项，执行多个命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-n选项，复制文件到多个位置"><span class="nav-number">1.4.</span> <span class="nav-text">使用-n选项，复制文件到多个位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结合find使用"><span class="nav-number">1.5.</span> <span class="nav-text">结合find使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹"><span class="nav-number">2.</span> <span class="nav-text">如何将和文件夹同名但是有后缀的文件一次全部移动到相应的文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一次得到所有癌症类型的样本名"><span class="nav-number">3.</span> <span class="nav-text">一次得到所有癌症类型的样本名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历文件每一行进行操作"><span class="nav-number">4.</span> <span class="nav-text">遍历文件每一行进行操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提取文件名并去掉后缀"><span class="nav-number">5.</span> <span class="nav-text">提取文件名并去掉后缀</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传文件"><span class="nav-number">6.</span> <span class="nav-text">传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#（批量）对文件修改"><span class="nav-number">7.</span> <span class="nav-text">（批量）对文件修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep匹配"><span class="nav-number">8.</span> <span class="nav-text">grep匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件上下翻转和左右翻转"><span class="nav-number">9.</span> <span class="nav-text">文件上下翻转和左右翻转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用rename批量重命名"><span class="nav-number">10.</span> <span class="nav-text">使用rename批量重命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ln（link）给文件建立快捷方式，也就是创建软链接"><span class="nav-number">11.</span> <span class="nav-text">使用ln（link）给文件建立快捷方式，也就是创建软链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些有用的快捷操作"><span class="nav-number">12.</span> <span class="nav-text">一些有用的快捷操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标准输入，标准输出与标准错误"><span class="nav-number">13.</span> <span class="nav-text">标准输入，标准输出与标准错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压"><span class="nav-number">14.</span> <span class="nav-text">解压</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-number">14.1.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gz"><span class="nav-number">14.2.</span> <span class="nav-text">gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar-gz"><span class="nav-number">14.3.</span> <span class="nav-text">tar.gz</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bz2"><span class="nav-number">14.4.</span> <span class="nav-text">bz2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件操作"><span class="nav-number">15.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件生成"><span class="nav-number">15.1.</span> <span class="nav-text">文件生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件排序"><span class="nav-number">15.2.</span> <span class="nav-text">文件排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个例子，fasta序列提取"><span class="nav-number">15.3.</span> <span class="nav-text">一个例子，fasta序列提取</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk"><span class="nav-number">16.</span> <span class="nav-text">awk</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wu tao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wu tao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">63k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">57 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
